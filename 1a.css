@@ -1177,3 +1177,29 @@ html[lang="en"] { --h1-em: 9.05; }      /* EN : « Fractional marketing » = 8,7
 }
 .ia-texte { font-size: clamp(32px, 4.6vw, 68px); max-width: 20em; line-height: 1.06; }
 .suite > #projets { padding-top: clamp(120px, 14vw, 208px); }
+
+/* ============================================================
+   1A·y — HERO SANS ILLUSTRATION, CENTRÉ
+   titre, phrase et bouton sur l'axe, au centre de l'écran ;
+   les références en bas, centrées
+   ============================================================ */
+.hero, .hero:is(*) {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: 1fr auto;
+}
+.hero-centre {
+  grid-column: 1; grid-row: 1;
+  width: 100%;
+  max-width: 980px;
+  justify-self: center;
+  align-items: center;
+  text-align: center;
+}
+.hero-centre > p { margin-inline: auto; }
+.hero-cta { align-items: center; justify-content: center; }
+.hero-logos { grid-column: 1; grid-row: 2; justify-content: center; }
+@media (max-aspect-ratio: 1/1), (max-width: 899px) {
+  .hero, .hero:is(*) { grid-template-rows: 1fr auto; row-gap: 24px; }
+  .hero-centre { grid-row: 1; align-self: center; }
+  .hero-logos { grid-row: 2; }
+}
