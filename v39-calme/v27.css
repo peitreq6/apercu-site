@@ -1,0 +1,476 @@
+/* ============================================================
+   V27 — chapitres bleu / blanc / noir (page d'accueil FR seule,
+   chargée après home.css ; DE et EN gardent home.css tel quel).
+   Le bleu #3223F4 devient LA couleur du site : hero, projets, FAQ.
+   Blanc pour le savoir-faire et la bio, noir pour le contact.
+   Pas d'autre couleur : le bleu, le blanc, le noir.
+   La typographie fait le travail : grands écarts d'échelle,
+   compositions asymétriques sur une grille de 12 colonnes.
+   ============================================================ */
+:root {
+  --signature: #3223F4;
+  --signature-fonce: #2819D8;
+  --violet: var(--signature);            /* tous les survols hérités suivent */
+  --t-h1: clamp(72px, 9vw, 150px);
+  --t-h2: clamp(44px, 5.6vw, 92px);
+  --t-h3: clamp(26px, 2.3vw, 36px);
+  --chapitre: clamp(88px, 11vw, 180px);  /* padding vertical des sections */
+  --large: 1360px;
+  --bord: max(var(--marge), calc((100% - var(--large)) / 2));
+  --filet-blanc: rgba(255, 255, 255, 0.4);
+  --filet-noir: rgba(0, 0, 0, 0.16);
+}
+
+/* le papier : blanc net, sans courbes de niveau ni grain */
+body.v27 { background: var(--blanc); }
+body.v27::before { content: none; }
+body.v27 > main { padding-bottom: 0; }
+.v27 ::selection { background: var(--signature); color: var(--blanc); }
+
+/* le menu : la pastille est le carré bleu, sans changement de couleur */
+.v27 .term .dot { background: var(--signature); pointer-events: none; cursor: default; }
+.v27 .term .dot::after { content: none; }
+
+/* ------------------------------------------------------------
+   1. HERO — une affiche : bleu plein, titre monumental à gauche
+   ------------------------------------------------------------ */
+.v27 .hero {
+  display: block;
+  place-items: normal;
+  min-height: 100svh;
+  padding: 0;
+  color: var(--blanc);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 78% 18%, rgba(98, 80, 255, 0.55) 0%, rgba(50, 35, 244, 0) 46%),
+    linear-gradient(135deg, var(--signature) 0%, var(--signature-fonce) 100%);
+}
+/* une seule forme : un grand disque blanc, coupé par le bord */
+.v27 .hero::after {
+  content: '';
+  position: absolute;
+  top: -11vw;
+  right: -9vw;
+  left: auto;
+  bottom: auto;
+  width: 38vw;
+  height: 38vw;
+  border-radius: 50%;
+  background: var(--blanc);
+}
+.v27 .hero-grille {
+  position: relative;
+  z-index: 1;
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-rows: 1fr auto;
+  column-gap: var(--gap);
+  row-gap: clamp(40px, 5vw, 72px);
+  padding: clamp(120px, 16vh, 180px) var(--bord) clamp(36px, 5vh, 56px);
+}
+body.v27 .hero h1.display {
+  grid-column: 1 / -1;
+  align-self: end;
+  justify-self: start;
+  margin: 0;
+  font-size: var(--t-h1);
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  max-width: none;
+  color: var(--blanc);
+}
+.v27 .hero-bas {
+  grid-column: 7 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+body.v27 .hero p { max-width: 30em; font-size: 17px; line-height: 1.55; color: var(--blanc); }
+.v27 .hero-cta { flex-direction: row; align-items: center; gap: 28px; margin: 0; }
+.v27 .hero-cta .btn { background: var(--blanc); color: var(--signature); padding: 13px 22px; }
+.v27 .hero-cta .btn:hover { background: var(--encre); color: var(--blanc); }
+.v27 .hero .lien { color: var(--blanc); }
+.v27 .hero .lien:hover { color: var(--blanc); text-decoration-color: var(--blanc); }
+
+/* ------------------------------------------------------------
+   2. SAVOIR-FAIRE — blanc, trois chapitres numérotés empilés
+   ------------------------------------------------------------ */
+.v27 .savoir-faire {
+  max-width: none;
+  min-height: 90svh;
+  margin: 0;
+  padding: var(--chapitre) var(--bord);
+  background: var(--blanc);
+}
+.v27 .savoir-faire > .titre {
+  text-align: left;
+  margin: 0;
+  font-size: var(--t-h2);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  color: var(--signature);
+  text-wrap: initial;
+}
+.v27 .titre .ligne { display: block; }
+.v27 .sf-liste {
+  list-style: none;
+  margin-top: clamp(64px, 9vw, 140px);
+  border-bottom: 1px solid var(--encre);
+}
+.v27 .sf-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gap);
+  align-items: start;
+  padding: clamp(40px, 5vw, 80px) 0;
+}
+/* le filet se trace de gauche à droite à l'apparition */
+.v27 .sf-item::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 1px;
+  background: var(--encre);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1s cubic-bezier(.2,.7,.2,1);
+}
+.v27 .sf-item.vu::before { transform: scaleX(1); }
+.v27 .sf-num {
+  grid-column: 1 / 4;
+  font-family: var(--titres);
+  font-weight: 500;
+  font-size: clamp(96px, 11vw, 180px);
+  line-height: 0.78;
+  letter-spacing: -0.06em;
+  color: var(--signature);
+}
+.v27 .sf-titre {
+  grid-column: 5 / 9;
+  font-family: var(--titres);
+  font-weight: 500;
+  font-size: var(--t-h3);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--encre);
+}
+.v27 .sf-item p { grid-column: 9 / -1; max-width: 26em; font-size: 17px; line-height: 1.5; }
+
+/* ------------------------------------------------------------
+   3. PROJETS — bleu, une liste éditoriale réglée, sans cartes
+   ------------------------------------------------------------ */
+.v27 #projets {
+  padding: var(--chapitre) var(--bord);
+  background: var(--signature);
+  color: var(--blanc);
+  counter-reset: cas;
+}
+.v27 #projets .intro {
+  max-width: 15em;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  font-size: clamp(36px, 4.4vw, 72px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--blanc);
+  text-wrap: balance;
+}
+.v27 #projets .bento {
+  display: block;
+  max-width: none;
+  margin-top: clamp(56px, 7vw, 112px);
+  padding: 0;
+  border-bottom: 1px solid var(--filet-blanc);
+}
+.v27 #projets .box,
+.v27 #projets .box:hover,
+.v27 #projets .depliable.ouverte {
+  min-height: 0;
+  padding: clamp(32px, 3.6vw, 52px) 0;
+  background: transparent;
+  border: none;
+  border-top: 1px solid var(--filet-blanc);
+  border-radius: 0;
+  color: var(--blanc);
+  transform: none;
+}
+.v27 #projets .depliable { counter-increment: cas; }
+.v27 #projets .box-tete {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gap);
+  row-gap: 18px;
+  align-items: start;
+}
+.v27 #projets .box-tete::before {
+  content: counter(cas, decimal-leading-zero);
+  grid-column: 1 / 3;
+  grid-row: 1 / span 2;
+  font-family: var(--titres);
+  font-weight: 500;
+  font-size: clamp(40px, 4.4vw, 72px);
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+}
+.v27 #projets .box-tete > .ui { grid-column: 3 / 6; grid-row: 1; padding-top: 6px; color: var(--blanc); }
+.v27 #projets .box .ui::before { content: none; }
+.v27 #projets .accroche {
+  grid-column: 6 / 11;
+  grid-row: 1;
+  max-width: none;
+  font-family: var(--titres);
+  font-weight: 500;
+  font-size: clamp(22px, 2.2vw, 34px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--blanc);
+}
+.v27 #projets .apercu {
+  grid-column: 11 / -1;
+  grid-row: 1 / span 2;
+  aspect-ratio: 4 / 3;
+  border-radius: 0;
+  background: var(--blanc);
+}
+.v27 #projets .plus { grid-column: 6 / 11; grid-row: 2; justify-self: start; color: var(--blanc); }
+.v27 #projets .lien:hover { color: var(--blanc); text-decoration-color: var(--blanc); }
+.v27 #projets .depliable:not(.ouverte):hover .apercu img { transform: scale(1.03); }
+
+/* le cas ouvert : le détail se déroule sur le bleu, en colonnes */
+.v27 #projets .depliable.ouverte .box-tete { padding-right: 0; }
+.v27 #projets .fermer-btn { top: clamp(28px, 3.2vw, 46px); right: 0; padding: 8px 0 8px 12px; color: var(--blanc); }
+.v27 #projets .detail-in { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); }
+.v27 #projets .detail-in > img { grid-column: 3 / 11; border-radius: 0; }
+.v27 #projets .mission,
+.v27 #projets .detail-blocs-3 { grid-column: 3 / -1; }
+.v27 #projets .mission { font-family: var(--titres); font-weight: 500; font-size: var(--t-h3); line-height: 1.1; letter-spacing: -0.02em; }
+.v27 #projets .depliable.ouverte h3 { color: var(--blanc); }
+.v27 #projets .detail-blocs-3 p,
+.v27 #projets .chiffres li { font-size: 17px; }
+
+/* l'appel de fin de liste : une ligne pleine largeur, pas une carte */
+.v27 #projets .box-cta,
+.v27 #projets a.box-cta:hover {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px 40px;
+}
+.v27 #projets .box-cta .cta-titre {
+  max-width: none;
+  font-size: clamp(36px, 4.4vw, 72px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--blanc);
+}
+.v27 #projets .box-cta .btn { background: var(--blanc); color: var(--signature); }
+.v27 #projets a.box-cta:hover .btn { background: var(--encre); color: var(--blanc); }
+
+/* ------------------------------------------------------------
+   4. BIO + LOGOS — blanc, la bio à gauche, les logos à droite
+   ------------------------------------------------------------ */
+.v27 .apropos { padding: var(--chapitre) var(--bord); background: var(--blanc); }
+.v27 .apropos .bento {
+  max-width: none;
+  padding: 0;
+  column-gap: clamp(32px, 5vw, 96px);
+  row-gap: 56px;
+  align-items: start;
+}
+.v27 #bio,
+.v27 #bio:hover,
+.v27 #bio.ouverte {
+  grid-column: 1 / 8;
+  min-height: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  color: var(--encre);
+  transform: none;
+}
+.v27 #bio .box-tete { justify-content: flex-start; gap: 28px; }
+.v27 #bio .ui,
+.v27 #bio .lien,
+.v27 #bio .fermer-btn,
+.v27 #bio .lien:hover { color: var(--encre); }
+.v27 #bio .ui::before { background: var(--signature); }
+.v27 #bio .titre { font-size: var(--t-h2); line-height: 0.95; letter-spacing: -0.04em; }
+.v27 #bio .cadre { width: min(280px, 60%); border: none; border-radius: 0; }
+.v27 #bio .fermer-btn { top: 0; right: 0; padding: 0 0 8px 12px; }
+.v27 #bio.ouverte .box-tete { padding-right: 0; }
+.v27 #bio .bio-detail { padding-top: 28px; }
+
+.v27 .refs {
+  grid-column: 8 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0;
+  background: none;
+  border: none;
+}
+.v27 .refs .ui { color: var(--encre); }
+.v27 .refs-grille {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  justify-items: stretch;
+  align-items: stretch;
+  padding: 0;
+  border-top: 1px solid var(--filet-noir);
+  border-left: 1px solid var(--filet-noir);
+}
+.v27 .refs-grille .logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: clamp(110px, 10vw, 150px);
+  padding: 24px;
+  border-right: 1px solid var(--filet-noir);
+  border-bottom: 1px solid var(--filet-noir);
+}
+.v27 .refs-grille .lc-large { grid-column: 1 / -1; min-height: clamp(150px, 13vw, 200px); }
+.v27 .refs-grille img { height: clamp(28px, 2.6vw, 40px); width: auto; max-width: 100%; filter: brightness(0); }
+.v27 .refs-grille .lc-large img { height: clamp(36px, 3.4vw, 54px); }
+.v27 .refs-grille img.lg-haut { height: clamp(44px, 4vw, 62px); }
+
+/* ------------------------------------------------------------
+   5. FAQ — bleu, une liste réglée de filets blancs
+   ------------------------------------------------------------ */
+.v27 .faq {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gap);
+  align-items: start;
+  padding: var(--chapitre) var(--bord);
+  background: var(--signature);
+  color: var(--blanc);
+}
+.v27 .faq > .titre {
+  grid-column: 1 / 5;
+  margin: 0;
+  text-align: left;
+  font-size: var(--t-h2);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  color: var(--blanc);
+}
+.v27 .faq .bento { grid-column: 5 / -1; display: block; max-width: none; margin: 0; padding: 0; }
+.v27 .box-faq,
+.v27 .depliable.box-faq.ouverte,
+.v27 .depliable.box-faq:not(.ouverte):hover {
+  padding: clamp(22px, 2.4vw, 34px) 0;
+  background: transparent;
+  border: none;
+  border-top: 1px solid var(--filet-blanc);
+  border-radius: 0;
+  color: var(--blanc);
+  transform: none;
+}
+.v27 .faq .bento .box-faq:last-child { border-bottom: 1px solid var(--filet-blanc); }
+.v27 .box-faq .accroche,
+.v27 .depliable.box-faq.ouverte .accroche,
+.v27 .depliable.box-faq:not(.ouverte):hover .accroche {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+  font-family: var(--titres);
+  font-weight: 500;
+  font-size: clamp(22px, 2.2vw, 34px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--blanc);
+}
+.v27 .box-faq .signe,
+.v27 .depliable.box-faq.ouverte .signe { color: var(--blanc); }
+.v27 .box-faq .detail-in { padding-top: 18px; }
+.v27 .box-faq .detail-in p { max-width: 40em; font-weight: 400; font-size: 17px; line-height: 1.55; color: var(--blanc); }
+.v27 .box-faq .detail-in b { font-weight: 600; }
+
+/* ------------------------------------------------------------
+   6. CONTACT — noir, la rupture : le CTA final en très grand
+   ------------------------------------------------------------ */
+.v27 .contact {
+  display: block;
+  place-items: normal;
+  min-height: 100svh;
+  margin: 0;
+  padding: var(--chapitre) var(--bord) clamp(150px, 14vw, 200px);
+  border-radius: 0;
+  background: var(--encre);
+}
+.v27 .contact .centre { align-items: flex-start; text-align: left; max-width: none; margin: 0; }
+.v27 .contact .titre {
+  max-width: 11em;
+  font-size: clamp(56px, 8.4vw, 140px);
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+.v27 .contact .voies { justify-content: flex-start; }
+.v27 .insecable { white-space: nowrap; }
+.v27 .contact .btn { background: var(--signature); color: var(--blanc); }
+.v27 .contact .btn:hover { background: var(--blanc); color: var(--encre); }
+.v27 .contact .copier:hover { background: var(--signature); }
+.v27 .contact footer { padding: 0 var(--bord); }
+.v27 .contact footer p { justify-content: flex-start; }
+
+/* ------------------------------------------------------------
+   MOBILE — pas une réduction : d'autres compositions
+   ------------------------------------------------------------ */
+@media (max-width: 899px) {
+  :root { --chapitre: clamp(80px, 22vw, 120px); }
+
+  /* hero : le titre remplit l'écran, le texte en bas */
+  .v27 .hero::after { top: 64px; right: -18vw; width: 52vw; height: 52vw; }
+  .v27 .hero-grille { padding-top: calc(64px + 40vw); row-gap: 40px; }
+  body.v27 .hero h1.display { font-size: min(clamp(52px, 15vw, 72px), calc((100vw - 2 * var(--marge)) / 6.9)); line-height: 0.92; }
+  .v27 .hero-bas { grid-column: 1 / -1; }
+  .v27 .hero-cta { flex-direction: row; flex-wrap: wrap; justify-content: flex-start; align-items: center; gap: 20px 24px; }
+
+  /* savoir-faire : chaque élément presque un écran */
+  .v27 .savoir-faire { min-height: 0; }
+  .v27 .sf-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 28px;
+    min-height: 64svh;
+    padding: 36px 0 48px;
+  }
+  .v27 .sf-num { font-size: 44vw; line-height: 0.8; }
+  .v27 .sf-item h3 { margin-top: auto; }
+
+  /* projets : numéro et libellé, puis la phrase, puis l'image */
+  .v27 #projets .box-tete { grid-template-columns: auto minmax(0, 1fr); column-gap: 16px; }
+  .v27 #projets .box-tete::before { grid-column: 1; grid-row: 1; font-size: 40px; }
+  .v27 #projets .box-tete > .ui { grid-column: 2; grid-row: 1; align-self: center; padding-top: 0; }
+  .v27 #projets .accroche { grid-column: 1 / -1; grid-row: 2; font-size: 24px; }
+  .v27 #projets .apercu { grid-column: 1 / -1; grid-row: 3; aspect-ratio: 16 / 10; }
+  .v27 #projets .plus { grid-column: 1 / -1; grid-row: 4; }
+  .v27 #projets .fermer-btn { top: 28px; }
+  .v27 #projets .detail-in { display: flex; }
+
+  /* bio d'abord, logos ensuite, bento 2 colonnes */
+  .v27 .bento > #bio,
+  .v27 .bento > .refs { grid-column: 1 / -1; }
+
+  /* FAQ : le titre au-dessus de la liste */
+  .v27 .faq { display: block; }
+  .v27 .faq > .titre { margin-bottom: 40px; }
+
+  .v27 .contact { min-height: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v27 .sf-item::before { transform: none; transition: none; }
+}

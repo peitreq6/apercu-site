@@ -1,0 +1,447 @@
+/* ============================================================
+   V30 — la V29, avec : (1) la trame suisse comme UNE carte fixe
+   derrière tous les fonds bleus ET blancs — blanche sur le bleu,
+   bleue très légère sur le blanc —, jamais dans les bento, qui
+   sont opaques et posées dessus ; (2) le savoir-faire en une seule
+   bande à trois cellules, titres tous à la même taille.
+
+   V29 — proportions, bento et cohérence (page d'accueil FR seule,
+   chargée après home.css ; DE et EN gardent home.css).
+   Même direction que la V28 — centré, bleu #3223F4 / blanc / noir,
+   bento, trame suisse — mais plus dense : plus de contenu visible
+   dans moins de hauteur.
+
+   ÉCHELLE TYPOGRAPHIQUE (V30) — 6 tailles, 2 polices, pour toute la page :
+     XL  le hero seul
+     L   TOUS les autres grands titres : titres de section, le nom de
+         la bio, le CTA final — même traitement que le hero (Poppins
+         500, capitales, interligne .95, approche -0.025em)
+     M   tout titre DANS une bento : savoir-faire, « Un projet en
+         tête ? », accroches projets, questions FAQ
+     body L · body (Inter) · label (Inter 500 capitales)
+   (ancienne échelle V29 ci-dessous, --t-m fusionnée dans --t-s)
+     --t-xl     display XL  hero (et CTA final)   Poppins 500, capitales au hero
+     --t-l      display L   titres de section     Poppins 500
+     --t-m      H2          titres de bento CTA   Poppins 500
+     --t-s      H3          titres de bento, accroches, questions FAQ
+     --t-body-l body L      sous-titre du hero
+     --t-body   body        textes courants       Inter 400
+     --t-label  label       menu, libellés        Inter 500 capitales
+   Interlignage et approche identiques pour tous les titres équivalents.
+   ============================================================ */
+:root {
+  --signature: #3223F4;
+  --signature-fonce: #2819D8;
+  --violet: var(--signature);            /* tous les survols hérités suivent */
+
+  --t-xl: min(92px, calc((100vw - 2 * var(--marge)) / 10.7));
+  --t-l: clamp(32px, 5vw, 72px);
+  --t-s: clamp(20px, 1.8vw, 26px);
+  --t-m: var(--t-s);                     /* V30 : fusionnée — un seul titre de bento */
+  --t-body-l: 20px;
+  --t-body: 17px;
+  --t-label: 12px;
+
+  --chapitre: clamp(64px, 7vw, 104px);   /* padding vertical des sections */
+  --large: 1280px;
+  --rayon: 22px;
+  --filet: 2px;
+  --filet-blanc: rgba(255, 255, 255, 0.45);
+  /* la trame suisse : une carte FIXE derrière la page — les sections
+     défilent dessus, ses lignes passent sans rupture d'un fond à
+     l'autre ; blanche sur le bleu, bleue très légère sur le blanc */
+  --trame: url("trame-suisse.svg") center top / 1440px auto repeat fixed;
+  --trame-bleue: url("trame-suisse-bleu.svg") center top / 1440px auto repeat fixed;
+}
+@media (max-width: 899px) {
+  :root { --t-xl: calc((100vw - 2 * var(--marge)) / 6.7); --t-l: calc((100vw - 2 * var(--marge)) / 9.6); --t-body-l: 17px; --chapitre: clamp(56px, 16vw, 80px); }
+}
+
+/* chaque fond porte la même carte, au même endroit de l'écran */
+body.v30 { background: var(--trame), var(--signature); }
+.v30 .savoir-faire,
+.v30 .apropos { background: var(--trame-bleue), var(--blanc); }
+.v30 #projets,
+.v30 .faq { background: var(--trame), var(--signature); }
+body.v30::before { content: none; }
+body.v30 > main { padding-bottom: 0; }
+.v30 ::selection { background: var(--signature); color: var(--blanc); }
+
+/* les registres */
+.v30 .titre, .v30 .intro, .v30 .cta-titre, .v30 .sf-titre, .v30 .accroche {
+  font-family: var(--titres);
+  font-weight: 500;
+  text-wrap: balance;
+}
+.v30 .titre, .v30 .intro, body.v30 .hero h1.display {
+  font-size: var(--t-l);
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+}
+.v30 .ui, .v30 .term { font-family: var(--grotesk); font-size: var(--t-label); font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; }
+.v30 .titre .ligne { display: block; }
+.v30 .insecable { white-space: nowrap; }
+
+/* un axe central, une largeur maîtrisée */
+.v30 .hero-centre,
+.v30 .savoir-faire > *,
+.v30 #projets > *,
+.v30 .bio-grille,
+.v30 .faq > *,
+.v30 .contact .centre { width: 100%; max-width: var(--large); margin-inline: auto; }
+.v30 .savoir-faire > .titre,
+.v30 #projets > .intro,
+.v30 .faq > .titre { text-align: center; }
+
+/* ------------------------------------------------------------
+   MENU — un ensemble compact : carré bleu, nom, liens, langues,
+   tous au registre des labels
+   ------------------------------------------------------------ */
+.v30 .term {
+  top: 14px;
+  gap: 2px;
+  padding: 4px;
+  background: var(--blanc);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  border: 1.5px solid var(--encre);
+  border-radius: 12px;
+  box-shadow: none;
+}
+.v30 .term .dot {
+  width: 10px; height: 10px;
+  margin: 0 2px 0 10px;
+  border-radius: 2px;
+  background: var(--signature);
+  pointer-events: none;
+}
+.v30 .term .dot::after { content: none; }
+.v30 .term a { padding: 8px 10px; border-radius: 8px; color: var(--encre); font-size: var(--t-label); }
+.v30 .term a.lang { padding: 8px 7px; font-size: var(--t-label); }
+.v30 .term .nom { letter-spacing: 0.1em; }
+.v30 .term a:hover { background: var(--signature); color: var(--blanc); }
+.v30 .term a.actif { background: transparent; color: var(--signature); }
+.v30 .term a.lang.langue-active,
+.v30 .term a.lang.langue-active:hover { background: var(--signature); color: var(--blanc); border-radius: 8px; }
+.v30 .term .sep { height: 14px; margin: 0 4px; background: rgba(0, 0, 0, 0.2); }
+@media (max-width: 899px) {
+  .v30 .term .nom, .v30 .term .nom + .sep { display: none; }
+  .v30 .term { top: 10px; }
+  .v30 .term .dot { margin: 0 4px 0 8px; }
+  .v30 .term a { padding: 8px 6px; letter-spacing: 0.06em; }
+  .v30 .term a.lang { padding: 7px 5px; }
+}
+@media (max-width: 359px) { .v30 .term .dot { display: none; } }
+
+/* ------------------------------------------------------------
+   1. HERO — centré, ~30 % plus petit, EXTERNALISÉE toujours seule
+   ------------------------------------------------------------ */
+.v30 .hero {
+  display: block;
+  place-items: normal;
+  min-height: 0;
+  padding: 0 var(--marge);
+  color: var(--blanc);
+  overflow: hidden;
+  background:
+    var(--trame),
+    radial-gradient(circle at 75% 20%, rgba(90, 70, 255, 0.55) 0%, rgba(50, 35, 244, 0) 46%),
+    linear-gradient(135deg, var(--signature) 0%, var(--signature-fonce) 100%);
+}
+.v30 .hero::after { content: none; }
+.v30 .hero-centre {
+  min-height: 100vh;
+  min-height: 100svh;   /* le hero remplit tout l'écran, ordinateur comme mobile */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 28px;
+  padding: 104px 0 72px;
+}
+/* chaque .ligne est un bloc : « EXTERNALISÉE. » ne remonte jamais.
+   Ordinateur : DIRECTION MARKETING / EXTERNALISÉE. ; mobile : la
+   première ligne se coupe entre ses deux mots, jamais ailleurs */
+body.v30 .hero h1.display {
+  margin: 0;
+  max-width: none;
+  font-size: var(--t-xl);
+  color: var(--blanc);
+}
+body.v30 .hero h1 .ligne { display: block; white-space: nowrap; }
+@media (max-width: 899px) { body.v30 .hero h1 .ligne:first-child { white-space: normal; } }
+body.v30 .hero p { max-width: 32em; font-size: var(--t-body-l); line-height: 1.5; color: var(--blanc); }
+/* les deux CTA : un seul ensemble, même gabarit, centrés */
+.v30 .hero-cta { flex-direction: row; justify-content: center; align-items: stretch; gap: 12px; margin: 0; flex-wrap: wrap; }
+.v30 .hero-cta .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 13.5em;
+  padding: 14px 22px;
+  border: var(--filet) solid var(--blanc);
+  border-radius: 12px;
+  background: var(--blanc);
+  color: var(--signature);
+  font-size: var(--t-body);
+}
+.v30 .hero-cta .btn-ligne { background: transparent; color: var(--blanc); }
+.v30 .hero-cta .btn:hover { background: var(--encre); border-color: var(--encre); color: var(--blanc); }
+
+/* ------------------------------------------------------------
+   BENTO — le système commun : posées AU-DESSUS du fond, filet net,
+   blanc au repos, bleu au survol, sans ombre
+   ------------------------------------------------------------ */
+.v30 .sf-bande,
+.v30 #projets .box,
+.v30 #projets .depliable.ouverte {
+  position: relative;
+  background: var(--blanc);
+  color: var(--encre);
+  border: var(--filet) solid var(--encre);
+  border-radius: var(--rayon);
+  transform: none;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.v30 #projets .box:hover,
+.v30 #projets .depliable:not(.ouverte):hover,
+.v30 #projets .depliable.ouverte {
+  background: var(--signature);
+  color: var(--blanc);
+  border-color: var(--blanc);
+  transform: none;
+}
+.v30 .box .ui::before { content: none; }
+
+/* ------------------------------------------------------------
+   2. SAVOIR-FAIRE — une seule bande posée sur la carte, trois
+   cellules égales séparées par le filet ; titre puis texte, collés
+   ------------------------------------------------------------ */
+.v30 .savoir-faire { max-width: none; margin: 0; padding: var(--chapitre) var(--marge); }
+.v30 .savoir-faire > .titre { margin-bottom: clamp(32px, 3.6vw, 52px); color: var(--signature); }
+.v30 .sf-bande {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  overflow: hidden;
+}
+.v30 .sf-cellule {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: clamp(24px, 2.4vw, 34px);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.v30 .sf-cellule + .sf-cellule { border-left: var(--filet) solid var(--encre); }
+/* le carré bleu du menu, en repère de chaque cellule */
+.v30 .sf-cellule::before {
+  content: '';
+  width: 10px; height: 10px;
+  margin-bottom: 6px;
+  border-radius: 2px;
+  background: var(--signature);
+}
+.v30 .sf-titre {
+  font-size: var(--t-m);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: var(--signature);
+}
+.v30 .sf-cellule p { font-size: var(--t-body); line-height: 1.5; }
+.v30 .sf-cellule:hover { background: var(--signature); color: var(--blanc); }
+.v30 .sf-cellule:hover .sf-titre { color: var(--blanc); }
+.v30 .sf-cellule:hover::before { background: var(--blanc); }
+
+/* ------------------------------------------------------------
+   3. PROJETS — bleu tramé, bento blanches 3 colonnes, image dominante
+   ------------------------------------------------------------ */
+.v30 #projets { padding: var(--chapitre) var(--marge); color: var(--blanc); }
+.v30 #projets > .intro { max-width: 20em; padding: 0; color: var(--blanc); }
+.v30 #projets .bento {
+  margin-top: clamp(32px, 3.6vw, 52px);
+  padding: 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.v30 #projets .bento > .box { grid-column: auto; }
+.v30 #projets .bento > .depliable.ouverte { grid-column: 1 / -1; }
+.v30 #projets .box {
+  min-height: 0;
+  padding: 0;
+  gap: 0;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+.v30 #projets .box-tete { justify-content: flex-start; gap: 10px; padding-bottom: 20px; }
+/* l'image bord à bord, en tête : plus de la moitié de la bento */
+.v30 #projets .apercu {
+  order: -2;
+  aspect-ratio: 4 / 3;
+  margin-bottom: 8px;
+  border-radius: 0;
+  border-bottom: var(--filet) solid var(--encre);
+  background: var(--blanc);
+}
+.v30 #projets .apercu-contenue img { padding: 12%; }
+.v30 #projets .box-tete > .ui { order: -1; padding: 0 20px; color: var(--signature); }
+.v30 #projets .accroche {
+  max-width: none;
+  padding: 0 20px;
+  font-size: var(--t-s);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: inherit;
+}
+.v30 #projets .accroche strong { font-weight: 500; }
+.v30 #projets .plus { margin: 4px 20px 0; align-self: flex-start; color: inherit; font-size: 15px; }
+.v30 #projets .box:hover .ui,
+.v30 #projets .depliable.ouverte .ui { color: var(--blanc); }
+.v30 #projets .box:hover .apercu { border-bottom-color: var(--blanc); }
+.v30 #projets .lien:hover,
+.v30 #projets .depliable .lien:hover { color: var(--blanc); text-decoration-color: var(--blanc); }
+
+/* le cas ouvert : pleine largeur, le détail sur le bleu */
+.v30 #projets .depliable.ouverte .box-tete { padding: 24px 150px 0 24px; }
+.v30 #projets .fermer-btn { top: 16px; right: 16px; color: var(--blanc); }
+.v30 #projets .detail-in { padding: 24px; }
+.v30 #projets .detail-in > img { max-height: 520px; object-fit: cover; border-radius: 12px; }
+.v30 #projets .mission { font-family: var(--titres); font-weight: 500; font-size: var(--t-m); line-height: 1.05; letter-spacing: -0.03em; }
+.v30 #projets .depliable.ouverte h3 { color: var(--blanc); }
+.v30 #projets .detail-blocs-3 p, .v30 #projets .chiffres li { font-size: var(--t-body); }
+
+/* l'appel de fin : la seule bento noire */
+.v30 #projets .box-cta,
+.v30 #projets a.box-cta:hover {
+  justify-content: space-between;
+  gap: 32px;
+  padding: clamp(22px, 2.2vw, 30px);
+  background: var(--encre);
+  border-color: var(--encre);
+  color: var(--blanc);
+}
+.v30 #projets a.box-cta:hover { border-color: var(--blanc); }
+.v30 #projets .box-cta .cta-titre { max-width: 10em; font-size: var(--t-m); line-height: 1; letter-spacing: -0.03em; text-transform: uppercase; color: var(--blanc); }
+.v30 #projets .box-cta .btn { align-self: flex-start; border-radius: 12px; background: var(--signature); color: var(--blanc); }
+.v30 #projets a.box-cta:hover .btn { background: var(--blanc); color: var(--encre); }
+
+/* ------------------------------------------------------------
+   4. BIO — une grande composition : photo | nom + bio, puis logos
+   ------------------------------------------------------------ */
+.v30 .apropos { padding: var(--chapitre) var(--marge); }
+.v30 .bio-grille {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 16px;
+}
+.v30 .bio-photo,
+.v30 .bio-texte,
+.v30 .refs { border: var(--filet) solid var(--encre); border-radius: var(--rayon); overflow: hidden; }
+.v30 .bio-photo { grid-column: 1 / 6; margin: 0; }
+.v30 .bio-photo img { display: block; width: 100%; height: 100%; max-height: min(500px, 52svh); object-fit: cover; object-position: 50% 30%; filter: grayscale(1); }
+.v30 .bio-texte {
+  grid-column: 6 / -1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 16px;
+  padding: clamp(24px, 3vw, 44px);
+}
+.v30 .bio-texte .ui { margin-bottom: auto; color: var(--signature); }
+/* sur le blanc, les titres prennent le bleu ; sur le bleu et le noir, le blanc */
+.v30 .bio-texte .titre { color: var(--signature); }
+.v30 .bio-texte p { max-width: 36em; font-size: var(--t-body); line-height: 1.55; }
+/* les logos : une seule bento, une collection libre, sans filets */
+.v30 .refs {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: clamp(22px, 2.6vw, 36px) clamp(24px, 3vw, 44px) clamp(28px, 3vw, 44px);
+}
+.v30 .refs > .ui { color: var(--signature); }
+.v30 .refs-grille {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  justify-items: center;
+  align-items: center;
+  gap: 36px 40px;
+  padding: 8px 0;
+}
+.v30 .refs-grille img { height: clamp(24px, 2.2vw, 32px); width: auto; max-width: 100%; filter: brightness(0); }
+.v30 .refs-grille img.lg-haut { height: clamp(34px, 3vw, 44px); }
+
+/* ------------------------------------------------------------
+   5. FAQ — compacte : 4 questions au moins dans l'écran
+   ------------------------------------------------------------ */
+.v30 .faq { padding: var(--chapitre) var(--marge); color: var(--blanc); }
+.v30 .faq > .titre { margin-bottom: clamp(28px, 3vw, 44px); color: var(--blanc); }
+.v30 .faq .bento { display: block; max-width: 900px; padding: 0; }
+.v30 .box-faq,
+.v30 .depliable.box-faq.ouverte,
+.v30 .depliable.box-faq:not(.ouverte):hover {
+  padding: 16px 0;
+  background: transparent;
+  border: none;
+  border-top: 1px solid var(--filet-blanc);
+  border-radius: 0;
+  color: var(--blanc);
+  transform: none;
+}
+.v30 .faq .bento .box-faq:last-child { border-bottom: 1px solid var(--filet-blanc); }
+.v30 .box-faq .accroche,
+.v30 .depliable.box-faq.ouverte .accroche,
+.v30 .depliable.box-faq:not(.ouverte):hover .accroche {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+  font-size: var(--t-s);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--blanc);
+}
+.v30 .box-faq .signe { font-size: 20px; color: var(--blanc); }
+.v30 .box-faq .detail-in { padding-top: 12px; }
+.v30 .box-faq .detail-in p { max-width: 44em; font-weight: 400; font-size: var(--t-body); line-height: 1.55; color: var(--blanc); }
+.v30 .box-faq .detail-in b { font-weight: 600; }
+
+/* ------------------------------------------------------------
+   6. CONTACT — noir, fort mais pas monumental, moins d'un écran
+   ------------------------------------------------------------ */
+.v30 .contact {
+  display: block;
+  place-items: normal;
+  min-height: 0;
+  margin: 0;
+  padding: clamp(80px, 9vw, 128px) var(--marge) 120px;
+  border-radius: 0;
+  background: var(--encre);
+}
+.v30 .contact .centre { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 28px; }
+.v30 .contact .titre { max-width: 15em; }
+.v30 .contact p { font-size: var(--t-body-l); }
+.v30 .contact .btn { border-radius: 12px; background: var(--signature); color: var(--blanc); }
+.v30 .contact .btn:hover { background: var(--blanc); color: var(--encre); }
+.v30 .contact .copier:hover { background: var(--signature); }
+.v30 .contact footer .ui, .v30 .contact footer p { font-size: 11px; }
+
+/* ------------------------------------------------------------
+   MOBILE
+   ------------------------------------------------------------ */
+@media (max-width: 899px) {
+  .v30 .hero-centre { padding: 96px 0 56px; }
+  .v30 .sf-bande { grid-template-columns: 1fr; }
+  .v30 .sf-cellule + .sf-cellule { border-left: none; border-top: var(--filet) solid var(--encre); }
+  .v30 #projets .bento { grid-template-columns: 1fr; gap: 12px; }
+  .v30 #projets .depliable.ouverte .box-tete { padding: 20px 20px 0; }
+  .v30 #projets .fermer-btn { top: 8px; right: 8px; }
+  .v30 .bio-photo, .v30 .bio-texte { grid-column: 1 / -1; }
+  .v30 .bio-photo img { max-height: 420px; }
+  .v30 .refs-grille { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 24px; }
+}
+@media (min-width: 900px) and (max-width: 1099px) {
+  .v30 #projets .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

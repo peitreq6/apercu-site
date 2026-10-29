@@ -1,0 +1,421 @@
+/* ============================================================
+   V28 — « Swiss precision + bold editorial » (page d'accueil FR
+   seule, chargée après home.css ; DE et EN gardent home.css).
+   Composition CENTRÉE : un axe central par section, un titre fort,
+   une grille bento contenue (max 1360px), l'asymétrie seulement à
+   l'intérieur des bento. Bleu #3223F4 / blanc / noir, la trame
+   topographique suisse en blanc sur les aplats bleus. Plus de rond.
+   ============================================================ */
+:root {
+  --signature: #3223F4;
+  --signature-fonce: #2819D8;
+  --violet: var(--signature);            /* tous les survols hérités suivent */
+  --t-h2: clamp(44px, 5.4vw, 88px);
+  --t-h3: clamp(24px, 2.2vw, 34px);
+  --chapitre: clamp(88px, 9vw, 150px);   /* padding vertical des sections */
+  --large: 1360px;
+  --rayon: 24px;
+  --filet-blanc: rgba(255, 255, 255, 0.38);
+  --filet-noir: rgba(0, 0, 0, 0.16);
+  /* la trame suisse : courbes de niveau blanches, très légères, en grand */
+  --trame: url("trame-suisse.svg") center top / 1440px auto repeat;
+}
+
+body.v28 { background: var(--blanc); }
+body.v28::before { content: none; }
+body.v28 > main { padding-bottom: 0; }
+.v28 ::selection { background: var(--signature); color: var(--blanc); }
+
+/* un wrapper centré pour tout ce qui compose une section */
+.v28 .hero-centre,
+.v28 .savoir-faire > *,
+.v28 #projets > *,
+.v28 .apropos > .bento,
+.v28 .faq > *,
+.v28 .contact .centre {
+  width: 100%;
+  max-width: var(--large);
+  margin-inline: auto;
+}
+
+/* le menu : la pastille porte l'icône HP, sans changement de couleur */
+.v28 .term .dot {
+  background: var(--signature) url("favicon-hp.svg") center / cover no-repeat;
+  pointer-events: none;
+  cursor: default;
+}
+.v28 .term .dot::after { content: none; }
+
+/* les titres de section : centrés, très grands */
+.v28 .section-titre,
+.v28 .savoir-faire > .titre,
+.v28 #projets > .intro,
+.v28 .faq > .titre {
+  text-align: center;
+  font-size: var(--t-h2);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+.v28 .titre .ligne { display: block; }
+
+/* ------------------------------------------------------------
+   1. HERO — bleu plein écran, trame suisse, tout sur l'axe
+   ------------------------------------------------------------ */
+.v28 .hero {
+  display: block;
+  place-items: normal;
+  min-height: 100svh;
+  padding: 0 var(--marge);
+  color: var(--blanc);
+  overflow: hidden;
+  background:
+    var(--trame),
+    radial-gradient(circle at 75% 20%, rgba(90, 70, 255, 0.55) 0%, rgba(50, 35, 244, 0) 46%),
+    linear-gradient(135deg, var(--signature) 0%, var(--signature-fonce) 100%);
+}
+.v28 .hero::after { content: none; }
+.v28 .hero-centre {
+  position: relative;
+  z-index: 1;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: clamp(28px, 4vh, 44px);
+  padding: 112px 0 72px;
+}
+/* le titre : capitales, deux lignes insécables, la taille suit la
+   largeur utile (--h1-em = largeur de la plus longue ligne en em :
+   « DIRECTION MARKETING » 10.5em ; sur mobile, trois lignes et
+   « EXTERNALISÉE. » 6.5em) */
+body.v28 .hero h1.display {
+  --h1-em: 10.7;
+  margin: 0;
+  max-width: none;
+  font-size: min(150px, calc((100vw - 2 * var(--marge)) / var(--h1-em)));
+  line-height: 0.9;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  color: var(--blanc);
+}
+body.v28 .hero p { max-width: 34em; font-size: 18px; line-height: 1.55; color: var(--blanc); }
+.v28 .hero-cta { flex-direction: row; justify-content: center; align-items: center; gap: 28px; margin: 0; flex-wrap: wrap; }
+.v28 .hero-cta .btn { background: var(--blanc); color: var(--signature); }
+.v28 .hero-cta .btn:hover { background: var(--encre); color: var(--blanc); }
+.v28 .hero .lien,
+.v28 .hero .lien:hover { color: var(--blanc); text-decoration-color: var(--blanc); }
+
+/* ------------------------------------------------------------
+   2. SAVOIR-FAIRE — blanc, titre centré, trois lignes numérotées
+   ------------------------------------------------------------ */
+.v28 .savoir-faire {
+  max-width: none;
+  margin: 0;
+  padding: var(--chapitre) var(--marge);
+  background: var(--blanc);
+}
+.v28 .savoir-faire > .titre { margin-bottom: clamp(48px, 6vw, 88px); color: var(--signature); }
+.v28 .sf-liste { list-style: none; border-bottom: 1px solid var(--encre); }
+.v28 .sf-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gap);
+  align-items: center;
+  padding: clamp(24px, 2.6vw, 40px) 0;
+}
+/* le filet se trace de gauche à droite à l'apparition */
+.v28 .sf-item::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 1px;
+  background: var(--encre);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1s cubic-bezier(.2,.7,.2,1);
+}
+.v28 .sf-item.vu::before { transform: scaleX(1); }
+.v28 .sf-num {
+  grid-column: 1 / 4;
+  font-family: var(--titres);
+  font-weight: 500;
+  font-size: clamp(72px, 8vw, 128px);
+  line-height: 0.8;
+  letter-spacing: -0.06em;
+  color: var(--signature);
+}
+.v28 .sf-titre {
+  grid-column: 4 / 8;
+  font-family: var(--titres);
+  font-weight: 500;
+  font-size: var(--t-h3);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+.v28 .sf-item p { grid-column: 8 / -1; font-size: 17px; line-height: 1.5; }
+
+/* ------------------------------------------------------------
+   3. PROJETS — bleu tramé, bento centrée à grandes images
+   ------------------------------------------------------------ */
+.v28 #projets {
+  padding: var(--chapitre) var(--marge);
+  background: var(--trame), var(--signature);
+  color: var(--blanc);
+  counter-reset: cas;
+}
+.v28 #projets > .intro { max-width: 15em; padding: 0; color: var(--blanc); }
+.v28 #projets .bento {
+  max-width: var(--large);
+  margin-top: clamp(48px, 6vw, 88px);
+  padding: 0;
+}
+.v28 #projets .box,
+.v28 #projets .depliable.ouverte {
+  min-height: 0;
+  padding: clamp(16px, 1.6vw, 22px);
+  gap: 20px;
+  justify-content: flex-start;
+  background: transparent;
+  border: 1px solid var(--filet-blanc);
+  border-radius: var(--rayon);
+  color: var(--blanc);
+  transform: none;
+}
+.v28 #projets .box:hover,
+.v28 #projets .depliable:not(.ouverte):hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--blanc);
+  color: var(--blanc);
+  transform: none;
+}
+.v28 #projets .depliable { counter-increment: cas; }
+.v28 #projets .box-tete { justify-content: flex-start; gap: 18px; }
+/* l'image en grand, en tête de chaque bento */
+.v28 #projets .apercu { order: -2; aspect-ratio: 16 / 10; border-radius: calc(var(--rayon) - 8px); background: var(--blanc); }
+.v28 #projets .box-tete > .ui {
+  order: -1;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 4px 6px 0;
+  color: var(--blanc);
+}
+.v28 #projets .box-tete > .ui::before {
+  content: counter(cas, decimal-leading-zero);
+  width: auto; height: auto; margin: 0;
+  background: none;
+  border-radius: 0;
+  font-family: var(--titres);
+  font-size: 28px;
+  letter-spacing: -0.03em;
+  text-transform: none;
+}
+.v28 #projets .accroche {
+  max-width: 26em;
+  padding: 0 6px;
+  font-family: var(--titres);
+  font-weight: 500;
+  font-size: clamp(22px, 2vw, 30px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--blanc);
+}
+.v28 #projets .plus { margin: 0 6px 6px; align-self: flex-start; color: var(--blanc); }
+.v28 #projets .lien:hover,
+.v28 #projets .depliable .lien:hover { color: var(--blanc); text-decoration-color: var(--blanc); }
+
+/* le cas ouvert : pleine largeur de la bento, détail sur le bleu */
+.v28 #projets .depliable.ouverte .box-tete { padding-right: clamp(100px, 14vw, 130px); }
+.v28 #projets .fermer-btn { color: var(--blanc); }
+.v28 #projets .detail-in { padding: 24px 6px 12px; }
+.v28 #projets .detail-in > img { border-radius: calc(var(--rayon) - 8px); }
+.v28 #projets .mission { font-family: var(--titres); font-weight: 500; font-size: var(--t-h3); line-height: 1.1; letter-spacing: -0.02em; }
+.v28 #projets .depliable.ouverte h3 { color: var(--blanc); }
+
+/* l'appel de fin : une bento blanche, la seule pleine */
+.v28 #projets .box-cta,
+.v28 #projets a.box-cta:hover {
+  justify-content: space-between;
+  padding: clamp(24px, 2.8vw, 40px);
+  background: var(--blanc);
+  border-color: var(--blanc);
+  color: var(--encre);
+}
+.v28 #projets .box-cta .cta-titre {
+  max-width: 8em;
+  font-size: clamp(40px, 4.6vw, 72px);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  color: var(--signature);
+}
+.v28 #projets .box-cta .btn { background: var(--signature); color: var(--blanc); }
+.v28 #projets a.box-cta:hover .btn { background: var(--encre); color: var(--blanc); }
+
+/* ------------------------------------------------------------
+   4. BIO + LOGOS — blanc, deux bento côte à côte (60/40)
+   ------------------------------------------------------------ */
+.v28 .apropos { padding: var(--chapitre) var(--marge); background: var(--blanc); }
+.v28 .apropos .bento { padding: 0; align-items: stretch; }
+.v28 #bio,
+.v28 #bio:hover,
+.v28 #bio.ouverte {
+  grid-column: 1 / 8;
+  min-height: 0;
+  padding: clamp(24px, 2.8vw, 40px);
+  background: transparent;
+  border: 1px solid var(--filet-noir);
+  border-radius: var(--rayon);
+  color: var(--encre);
+  transform: none;
+}
+.v28 #bio:hover { border-color: var(--encre); }
+.v28 #bio .box-tete { justify-content: flex-start; gap: 24px; }
+.v28 #bio .ui,
+.v28 #bio .lien,
+.v28 #bio .lien:hover,
+.v28 #bio .fermer-btn { color: var(--encre); }
+.v28 #bio .ui::before { background: var(--signature); }
+.v28 #bio .titre { font-size: var(--t-h2); line-height: 0.95; letter-spacing: -0.04em; }
+.v28 #bio .cadre { width: min(340px, 70%); border: none; border-radius: calc(var(--rayon) - 8px); }
+.v28 #bio.ouverte .box-tete { padding-right: 0; }
+.v28 #bio .fermer-btn { top: clamp(16px, 2vw, 28px); right: clamp(16px, 2vw, 28px); }
+
+.v28 .refs {
+  grid-column: 8 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+  background: none;
+  border: 1px solid var(--filet-noir);
+  border-radius: var(--rayon);
+  overflow: hidden;
+}
+.v28 .refs > .ui { padding: clamp(20px, 2.2vw, 30px); color: var(--encre); border-bottom: 1px solid var(--filet-noir); }
+.v28 .refs-grille {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  justify-items: stretch;
+  align-items: stretch;
+  padding: 0;
+}
+.v28 .refs-grille .logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: clamp(96px, 8vw, 130px);
+  padding: 22px;
+  border-bottom: 1px solid var(--filet-noir);
+}
+.v28 .refs-grille .logo:nth-last-child(-n+2) { border-bottom: none; }
+.v28 .refs-grille .lc-large { grid-column: 1 / -1; min-height: clamp(120px, 10vw, 160px); }
+/* filets intérieurs : à droite de la case gauche de chaque paire */
+.v28 .refs-grille .logo:nth-child(2),
+.v28 .refs-grille .logo:nth-child(4),
+.v28 .refs-grille .logo:nth-child(7) { border-right: 1px solid var(--filet-noir); }
+.v28 .refs-grille .logo:nth-child(3),
+.v28 .refs-grille .logo:nth-child(5),
+.v28 .refs-grille .logo:nth-child(8) { border-right: none; }
+.v28 .refs-grille img { height: clamp(28px, 2.6vw, 40px); width: auto; max-width: 100%; filter: brightness(0); }
+.v28 .refs-grille .lc-large img { height: clamp(36px, 3.4vw, 54px); }
+.v28 .refs-grille img.lg-haut { height: clamp(44px, 4vw, 62px); }
+
+/* ------------------------------------------------------------
+   5. FAQ — bleu tramé, titre centré, liste réglée centrée
+   ------------------------------------------------------------ */
+.v28 .faq {
+  padding: var(--chapitre) var(--marge);
+  background: var(--trame), var(--signature);
+  color: var(--blanc);
+}
+.v28 .faq > .titre { margin-bottom: clamp(40px, 5vw, 72px); color: var(--blanc); }
+.v28 .faq .bento { display: block; max-width: 980px; padding: 0; }
+.v28 .box-faq,
+.v28 .depliable.box-faq.ouverte,
+.v28 .depliable.box-faq:not(.ouverte):hover {
+  padding: clamp(20px, 2.2vw, 30px) 0;
+  background: transparent;
+  border: none;
+  border-top: 1px solid var(--filet-blanc);
+  border-radius: 0;
+  color: var(--blanc);
+  transform: none;
+}
+.v28 .faq .bento .box-faq:last-child { border-bottom: 1px solid var(--filet-blanc); }
+.v28 .box-faq .accroche,
+.v28 .depliable.box-faq.ouverte .accroche,
+.v28 .depliable.box-faq:not(.ouverte):hover .accroche {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+  font-family: var(--titres);
+  font-weight: 500;
+  font-size: clamp(22px, 2.1vw, 32px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--blanc);
+}
+.v28 .box-faq .signe,
+.v28 .depliable.box-faq.ouverte .signe { color: var(--blanc); }
+.v28 .box-faq .detail-in { padding-top: 16px; }
+.v28 .box-faq .detail-in p { max-width: 44em; font-weight: 400; font-size: 17px; line-height: 1.55; color: var(--blanc); }
+.v28 .box-faq .detail-in b { font-weight: 600; }
+
+/* ------------------------------------------------------------
+   6. CONTACT — noir, le CTA final en très grand, centré
+   ------------------------------------------------------------ */
+.v28 .contact {
+  display: block;
+  place-items: normal;
+  min-height: 100svh;
+  margin: 0;
+  padding: var(--chapitre) var(--marge) clamp(150px, 14vw, 200px);
+  border-radius: 0;
+  background: var(--encre);
+}
+.v28 .contact .centre { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.v28 .contact .titre {
+  max-width: 11em;
+  font-size: clamp(52px, 8vw, 132px);
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+.v28 .insecable { white-space: nowrap; }
+.v28 .contact .btn { background: var(--signature); color: var(--blanc); }
+.v28 .contact .btn:hover { background: var(--blanc); color: var(--encre); }
+.v28 .contact .copier:hover { background: var(--signature); }
+
+/* ------------------------------------------------------------
+   MOBILE
+   ------------------------------------------------------------ */
+@media (max-width: 899px) {
+  :root { --chapitre: clamp(80px, 22vw, 112px); }
+
+  .v28 .hero-centre { padding: 96px 0 56px; }
+  body.v28 .hero h1.display { --h1-em: 6.7; }
+  body.v28 .hero h1 .ligne { white-space: normal; }
+
+  .v28 .sf-item { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding: 32px 0 36px; }
+  .v28 .sf-num { font-size: 30vw; }
+
+  .v28 #projets .bento > .box { grid-column: 1 / -1; }
+
+  .v28 .bento > #bio,
+  .v28 .bento > .refs { grid-column: 1 / -1; }
+  .v28 .apropos .bento { row-gap: 24px; }
+
+  .v28 .contact { min-height: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v28 .sf-item::before { transform: none; transition: none; }
+}

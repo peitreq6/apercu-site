@@ -1,0 +1,1026 @@
+/* ============================================================
+   V36 — voir le bloc « V36 » en fin de fichier (version de mise en ligne).
+
+   V35 — voir le bloc « V35 » en fin de fichier.
+
+   V34 — voir le bloc « V34 » en fin de fichier.
+
+   V33 — voir le bloc « ÉCHELLE V33 » en fin de fichier : 4 tailles.
+
+   V32 — savoir-faire en composition purement typographique (plus
+   de bento ni d'image), photos en noir et blanc, menu à un seul
+   style de texte (photo + nom, sans rôle).
+
+   V31 — ajustements ciblés sur la V30 : profil (photo ronde + nom +
+   rôle) en tête du menu, grands titres en casse normale (même
+   règle partout), CTA du hero empilés, savoir-faire en trois bento
+   image + titre + texte, bio | références côte à côte.
+
+   V30 — la V29, avec : (1) la trame suisse comme UNE carte fixe
+   derrière tous les fonds bleus ET blancs — blanche sur le bleu,
+   bleue très légère sur le blanc —, jamais dans les bento, qui
+   sont opaques et posées dessus ; (2) le savoir-faire en une seule
+   bande à trois cellules, titres tous à la même taille.
+
+   V29 — proportions, bento et cohérence (page d'accueil FR seule,
+   chargée après home.css ; DE et EN gardent home.css).
+   Même direction que la V28 — centré, bleu #3223F4 / blanc / noir,
+   bento, trame suisse — mais plus dense : plus de contenu visible
+   dans moins de hauteur.
+
+   ÉCHELLE TYPOGRAPHIQUE (V30) — 6 tailles, 2 polices, pour toute la page :
+     XL  le hero seul
+     L   TOUS les autres grands titres : titres de section, le nom de
+         la bio, le CTA final — même traitement que le hero (Poppins
+         500, capitales, interligne .95, approche -0.025em)
+     M   tout titre DANS une bento : savoir-faire, « Un projet en
+         tête ? », accroches projets, questions FAQ
+     body L · body (Inter) · label (Inter 500 capitales)
+   (ancienne échelle V29 ci-dessous, --t-m fusionnée dans --t-s)
+     --t-xl     display XL  hero (et CTA final)   Poppins 500, capitales au hero
+     --t-l      display L   titres de section     Poppins 500
+     --t-m      H2          titres de bento CTA   Poppins 500
+     --t-s      H3          titres de bento, accroches, questions FAQ
+     --t-body-l body L      sous-titre du hero
+     --t-body   body        textes courants       Inter 400
+     --t-label  label       menu, libellés        Inter 500 capitales
+   Interlignage et approche identiques pour tous les titres équivalents.
+   ============================================================ */
+:root {
+  --signature: #3223F4;
+  --signature-fonce: #2819D8;
+  --violet: var(--signature);            /* tous les survols hérités suivent */
+
+  --t-xl: min(100px, calc((100vw - 2 * var(--marge)) / 9.4));
+  --t-l: clamp(32px, 5vw, 72px);
+  --t-s: clamp(20px, 1.8vw, 26px);
+  --t-m: var(--t-s);                     /* V30 : fusionnée — un seul titre de bento */
+  --t-body-l: 20px;
+  --t-body: 17px;
+  --t-label: 12px;
+
+  --chapitre: clamp(64px, 7vw, 104px);   /* padding vertical des sections */
+  --large: 1280px;
+  --rayon: 22px;
+  --filet: 2px;
+  --filet-blanc: rgba(255, 255, 255, 0.45);
+  /* la trame suisse : une carte FIXE derrière la page — les sections
+     défilent dessus, ses lignes passent sans rupture d'un fond à
+     l'autre ; blanche sur le bleu, bleue très légère sur le blanc */
+  --trame: url("trame-suisse.svg") center top / 1440px auto repeat fixed;
+  --trame-bleue: url("trame-suisse-bleu.svg") center top / 1440px auto repeat fixed;
+}
+@media (max-width: 899px) {
+  :root { --t-xl: calc((100vw - 2 * var(--marge)) / 5.9); --t-l: calc((100vw - 2 * var(--marge)) / 8.4); --t-body-l: 17px; --chapitre: clamp(56px, 16vw, 80px); }
+}
+
+/* chaque fond porte la même carte, au même endroit de l'écran */
+body.v36 { background: var(--trame), var(--signature); }
+.v36 .savoir-faire,
+.v36 .apropos { background: var(--trame-bleue), var(--blanc); }
+.v36 #projets,
+.v36 .faq { background: var(--trame), var(--signature); }
+body.v36::before { content: none; }
+body.v36 > main { padding-bottom: 0; }
+.v36 ::selection { background: var(--signature); color: var(--blanc); }
+
+/* les registres */
+.v36 .titre, .v36 .intro, .v36 .cta-titre, .v36 .sf-titre, .v36 .accroche {
+  font-family: var(--titres);
+  font-weight: 500;
+  text-wrap: balance;
+}
+.v36 .titre, .v36 .intro, body.v36 .hero h1.display {
+  font-size: var(--t-l);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  text-transform: none;
+}
+.v36 .ui, .v36 .term { font-family: var(--grotesk); font-size: var(--t-label); font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; }
+.v36 .titre .ligne { display: block; }
+.v36 .insecable { white-space: nowrap; }
+
+/* un axe central, une largeur maîtrisée */
+.v36 .hero-centre,
+.v36 .savoir-faire > *,
+.v36 #projets > *,
+.v36 .bio-grille,
+.v36 .faq > *,
+.v36 .contact .centre { width: 100%; max-width: var(--large); margin-inline: auto; }
+.v36 .savoir-faire > .titre,
+.v36 #projets > .intro,
+.v36 .faq > .titre { text-align: center; }
+
+/* ------------------------------------------------------------
+   MENU — le profil (photo ronde, nom, rôle) ouvre la barre, puis
+   la navigation et les langues, tout au registre des labels
+   ------------------------------------------------------------ */
+.v36 .term {
+  top: 14px;
+  gap: 2px;
+  padding: 5px 5px 5px 6px;
+  background: var(--blanc);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  border: 1.5px solid var(--encre);
+  border-radius: 999px;
+  box-shadow: none;
+}
+.v36 .term .profil {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 14px 0 0;
+  border-radius: 999px;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.v36 .term .profil:hover { background: transparent; color: var(--encre); }
+.v36 .term .profil img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; flex: none; }
+.v36 .term .profil { text-transform: uppercase; letter-spacing: 0.1em; }
+.v36 .profil-nom { font-size: var(--t-label); font-weight: 500; color: var(--encre); }
+.v36 .term .profil img { filter: grayscale(1); }
+.v36 .term a:not(.profil) { padding: 9px 11px; border-radius: 999px; color: var(--encre); font-size: var(--t-label); }
+.v36 .term a.lang { padding: 9px 8px; }
+.v36 .term a:not(.profil):hover { background: var(--signature); color: var(--blanc); }
+.v36 .term a.actif { background: transparent; color: var(--signature); }
+.v36 .term a.lang.langue-active,
+.v36 .term a.lang.langue-active:hover { background: var(--signature); color: var(--blanc); border-radius: 999px; }
+.v36 .term .sep { height: 16px; margin: 0 6px; background: rgba(0, 0, 0, 0.2); }
+@media (max-width: 899px) {
+  .v36 .profil-nom { display: none; }
+  .v36 .term { top: 10px; padding: 4px; }
+  .v36 .term .profil { padding: 0 4px 0 0; }
+  .v36 .term .profil img { width: 32px; height: 32px; }
+  .v36 .term a:not(.profil) { padding: 8px 5px; letter-spacing: 0.04em; }
+  .v36 .term a.lang { padding: 7px 5px; }
+  .v36 .term .sep { margin: 0 2px; }
+  .v36 .term { gap: 0; max-width: calc(100vw - 16px); }
+}
+@media (max-width: 359px) {
+  .v36 .term .sep { display: none; }
+  .v36 .term a:not(.profil) { padding: 8px 4px; letter-spacing: 0.02em; }
+  .v36 .term a.lang { padding: 6px 4px; }
+  .v36 .term .profil img { width: 28px; height: 28px; }
+}
+
+/* ------------------------------------------------------------
+   1. HERO — centré, ~30 % plus petit, EXTERNALISÉE toujours seule
+   ------------------------------------------------------------ */
+.v36 .hero {
+  display: block;
+  place-items: normal;
+  min-height: 0;
+  padding: 0 var(--marge);
+  color: var(--blanc);
+  overflow: hidden;
+  background:
+    var(--trame),
+    radial-gradient(circle at 75% 20%, rgba(90, 70, 255, 0.55) 0%, rgba(50, 35, 244, 0) 46%),
+    linear-gradient(135deg, var(--signature) 0%, var(--signature-fonce) 100%);
+}
+.v36 .hero::after { content: none; }
+.v36 .hero-centre {
+  min-height: 100vh;
+  min-height: 100svh;   /* le hero remplit tout l'écran, ordinateur comme mobile */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 28px;
+  padding: 104px 0 72px;
+}
+/* chaque .ligne est un bloc : « EXTERNALISÉE. » ne remonte jamais.
+   Ordinateur : DIRECTION MARKETING / EXTERNALISÉE. ; mobile : la
+   première ligne se coupe entre ses deux mots, jamais ailleurs */
+body.v36 .hero h1.display {
+  margin: 0;
+  max-width: none;
+  font-size: var(--t-xl);
+  color: var(--blanc);
+}
+body.v36 .hero h1 .ligne { display: block; white-space: nowrap; }
+@media (max-width: 899px) { body.v36 .hero h1 .ligne:first-child { white-space: normal; } }
+body.v36 .hero p { max-width: 32em; font-size: var(--t-body-l); line-height: 1.5; color: var(--blanc); }
+/* les deux CTA : un seul ensemble, même gabarit, centrés */
+/* le CTA principal, le secondaire dessous, sur l'axe */
+.v36 .hero-cta { flex-direction: column; justify-content: center; align-items: center; gap: 18px; margin: 0; }
+.v36 .hero-cta .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 13.5em;
+  padding: 14px 22px;
+  border: var(--filet) solid var(--blanc);
+  border-radius: 12px;
+  background: var(--blanc);
+  color: var(--signature);
+  font-size: var(--t-body);
+}
+.v36 .hero .lien,
+.v36 .hero .lien:hover { color: var(--blanc); text-decoration-color: var(--blanc); font-size: var(--t-body); }
+.v36 .hero-cta .btn:hover { background: var(--encre); border-color: var(--encre); color: var(--blanc); }
+
+/* ------------------------------------------------------------
+   BENTO — le système commun : posées AU-DESSUS du fond, filet net,
+   blanc au repos, bleu au survol, sans ombre
+   ------------------------------------------------------------ */
+.v36 #projets .box,
+.v36 #projets .depliable.ouverte {
+  position: relative;
+  background: var(--blanc);
+  color: var(--encre);
+  border: var(--filet) solid var(--encre);
+  border-radius: var(--rayon);
+  transform: none;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.v36 #projets .box:hover,
+.v36 #projets .depliable:not(.ouverte):hover,
+.v36 #projets .depliable.ouverte {
+  background: var(--signature);
+  color: var(--blanc);
+  border-color: var(--blanc);
+  transform: none;
+}
+.v36 .box .ui::before { content: none; }
+
+/* ------------------------------------------------------------
+   2. SAVOIR-FAIRE — que de la typographie : le titre, puis trois
+   lignes réglées au filet 2px, le mot en bleu au registre L à
+   gauche, le texte au registre body L à droite
+   ------------------------------------------------------------ */
+.v36 .savoir-faire { max-width: none; margin: 0; padding: var(--chapitre) var(--marge); }
+.v36 .savoir-faire > .titre { margin-bottom: clamp(40px, 4.4vw, 64px); color: var(--encre); }
+.v36 .titre .accent { color: var(--signature); }
+.v36 .sf-liste { border-bottom: var(--filet) solid var(--encre); }
+.v36 .sf-ligne {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gap);
+  align-items: center;
+  padding: clamp(24px, 2.6vw, 36px) 0;
+  border-top: var(--filet) solid var(--encre);
+}
+.v36 .sf-mot {
+  grid-column: 1 / 7;
+  font-family: var(--titres);
+  font-weight: 500;
+  font-size: var(--t-l);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  color: var(--signature);
+}
+.v36 .sf-ligne p { grid-column: 7 / -1; font-size: var(--t-body-l); line-height: 1.45; }
+
+/* ------------------------------------------------------------
+   3. PROJETS — bleu tramé, bento blanches 3 colonnes, image dominante
+   ------------------------------------------------------------ */
+.v36 #projets { padding: var(--chapitre) var(--marge); color: var(--blanc); }
+.v36 #projets > .intro { max-width: 20em; padding: 0; color: var(--blanc); }
+.v36 #projets .bento {
+  margin-top: clamp(32px, 3.6vw, 52px);
+  padding: 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.v36 #projets .bento > .box { grid-column: auto; }
+.v36 #projets .bento > .depliable.ouverte { grid-column: 1 / -1; }
+.v36 #projets .box {
+  min-height: 0;
+  padding: 0;
+  gap: 0;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+.v36 #projets .box-tete { justify-content: flex-start; gap: 10px; padding-bottom: 20px; }
+/* l'image bord à bord, en tête : plus de la moitié de la bento */
+.v36 #projets .apercu {
+  order: -2;
+  aspect-ratio: 4 / 3;
+  margin-bottom: 8px;
+  border-radius: 0;
+  border-bottom: var(--filet) solid var(--encre);
+  background: var(--blanc);
+}
+.v36 #projets .apercu-contenue img { padding: 12%; }
+.v36 #projets .box-tete > .ui { order: -1; padding: 0 20px; color: var(--signature); }
+.v36 #projets .accroche {
+  max-width: none;
+  padding: 0 20px;
+  font-size: var(--t-s);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: inherit;
+}
+.v36 #projets .accroche strong { font-weight: 500; }
+.v36 #projets .plus { margin: 4px 20px 0; align-self: flex-start; color: inherit; font-size: 15px; }
+.v36 #projets .box:hover .ui,
+.v36 #projets .depliable.ouverte .ui { color: var(--blanc); }
+.v36 #projets .box:hover .apercu { border-bottom-color: var(--blanc); }
+.v36 #projets .lien:hover,
+.v36 #projets .depliable .lien:hover { color: var(--blanc); text-decoration-color: var(--blanc); }
+
+/* le cas ouvert : pleine largeur, le détail sur le bleu */
+.v36 #projets .depliable.ouverte .box-tete { padding: 24px 150px 0 24px; }
+.v36 #projets .fermer-btn { top: 16px; right: 16px; color: var(--blanc); }
+.v36 #projets .detail-in { padding: 24px; }
+.v36 #projets .detail-in > img { max-height: 520px; object-fit: cover; border-radius: 12px; }
+.v36 #projets .mission { font-family: var(--titres); font-weight: 500; font-size: var(--t-m); line-height: 1.05; letter-spacing: -0.03em; }
+.v36 #projets .depliable.ouverte h3 { color: var(--blanc); }
+.v36 #projets .detail-blocs-3 p, .v36 #projets .chiffres li { font-size: var(--t-body); }
+
+/* l'appel de fin : la seule bento noire */
+.v36 #projets .box-cta,
+.v36 #projets a.box-cta:hover {
+  justify-content: space-between;
+  gap: 32px;
+  padding: clamp(22px, 2.2vw, 30px);
+  background: var(--encre);
+  border-color: var(--encre);
+  color: var(--blanc);
+}
+.v36 #projets a.box-cta:hover { border-color: var(--blanc); }
+.v36 #projets .box-cta .cta-titre { max-width: 10em; font-size: var(--t-m); line-height: 1.1; letter-spacing: -0.02em; color: var(--blanc); }
+.v36 #projets .box-cta .btn { align-self: flex-start; border-radius: 12px; background: var(--signature); color: var(--blanc); }
+.v36 #projets a.box-cta:hover .btn { background: var(--blanc); color: var(--encre); }
+
+/* ------------------------------------------------------------
+   4. BIO — deux bento côte à côte : « À propos » | « J'ai travaillé
+   avec », même libellé en tête, même hauteur ; photo petite
+   ------------------------------------------------------------ */
+.v36 .apropos { padding: var(--chapitre) var(--marge); }
+.v36 .bio-grille { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 16px; }
+.v36 .bio-texte,
+.v36 .refs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: clamp(24px, 2.6vw, 36px);
+  background: var(--blanc);
+  border: var(--filet) solid var(--encre);
+  border-radius: var(--rayon);
+}
+.v36 .bio-texte { grid-column: 1 / 8; }
+.v36 .refs { grid-column: 8 / -1; }
+.v36 .bio-texte > .ui,
+.v36 .refs > .ui { color: var(--signature); }
+.v36 .bio-tete { display: flex; align-items: flex-end; gap: 20px; margin: 4px 0 4px; }
+.v36 .bio-photo { width: 168px; height: 168px; flex: none; border-radius: 16px; object-fit: cover; object-position: 50% 22%; filter: grayscale(1); }
+.v36 .bio-texte .titre { color: var(--signature); }
+.v36 .bio-texte p { max-width: 38em; font-size: var(--t-body); line-height: 1.55; }
+.v36 .refs-grille {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  justify-items: center;
+  align-items: center;
+  gap: 28px 24px;
+  padding: 8px 0;
+}
+.v36 .refs-grille img { height: clamp(24px, 2.1vw, 30px); width: auto; max-width: 100%; filter: brightness(0); }
+.v36 .refs-grille img.lg-haut { height: clamp(34px, 2.9vw, 42px); }
+
+/* ------------------------------------------------------------
+   5. FAQ — compacte : 4 questions au moins dans l'écran
+   ------------------------------------------------------------ */
+.v36 .faq { padding: var(--chapitre) var(--marge); color: var(--blanc); }
+.v36 .faq > .titre { margin-bottom: clamp(28px, 3vw, 44px); color: var(--blanc); }
+.v36 .faq .bento { display: block; max-width: 900px; padding: 0; }
+.v36 .box-faq,
+.v36 .depliable.box-faq.ouverte,
+.v36 .depliable.box-faq:not(.ouverte):hover {
+  padding: 16px 0;
+  background: transparent;
+  border: none;
+  border-top: 1px solid var(--filet-blanc);
+  border-radius: 0;
+  color: var(--blanc);
+  transform: none;
+}
+.v36 .faq .bento .box-faq:last-child { border-bottom: 1px solid var(--filet-blanc); }
+.v36 .box-faq .accroche,
+.v36 .depliable.box-faq.ouverte .accroche,
+.v36 .depliable.box-faq:not(.ouverte):hover .accroche {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+  font-size: var(--t-s);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--blanc);
+}
+.v36 .box-faq .signe { font-size: 20px; color: var(--blanc); }
+.v36 .box-faq .detail-in { padding-top: 12px; }
+.v36 .box-faq .detail-in p { max-width: 44em; font-weight: 400; font-size: var(--t-body); line-height: 1.55; color: var(--blanc); }
+.v36 .box-faq .detail-in b { font-weight: 600; }
+
+/* ------------------------------------------------------------
+   6. CONTACT — noir, fort mais pas monumental, moins d'un écran
+   ------------------------------------------------------------ */
+.v36 .contact {
+  display: block;
+  place-items: normal;
+  min-height: 0;
+  margin: 0;
+  padding: clamp(80px, 9vw, 128px) var(--marge) 120px;
+  border-radius: 0;
+  background: var(--encre);
+}
+.v36 .contact .centre { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 28px; }
+.v36 .contact .titre { max-width: 15em; }
+.v36 .contact p { font-size: var(--t-body-l); }
+.v36 .contact .btn { border-radius: 12px; background: var(--signature); color: var(--blanc); }
+.v36 .contact .btn:hover { background: var(--blanc); color: var(--encre); }
+.v36 .contact .copier:hover { background: var(--signature); }
+.v36 .contact footer .ui, .v36 .contact footer p { font-size: 11px; }
+
+/* ------------------------------------------------------------
+   MOBILE
+   ------------------------------------------------------------ */
+@media (max-width: 899px) {
+  .v36 .hero-centre { padding: 96px 0 56px; }
+  .v36 .sf-ligne { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+  .v36 #projets .bento { grid-template-columns: 1fr; gap: 12px; }
+  .v36 #projets .depliable.ouverte .box-tete { padding: 20px 20px 0; }
+  .v36 #projets .fermer-btn { top: 8px; right: 8px; }
+  .v36 .bio-texte, .v36 .refs { grid-column: 1 / -1; }
+  .v36 .bio-photo { width: 120px; height: 120px; }
+  .v36 .refs-grille { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 24px; }
+}
+@media (min-width: 900px) and (max-width: 1099px) {
+  .v36 #projets .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+
+/* ============================================================
+   ÉCHELLE V33 — QUATRE TAILLES POUR TOUTE LA PAGE, PAS UNE DE PLUS
+     Display  Poppins 500   tous les grands titres, hero compris
+                            (les titres de section +20 % : 72 → 86px)
+     Medium   Poppins 500   questions FAQ, « Un projet en tête ? »,
+                            mission d'un cas ouvert
+     Texte    Inter 400/500 TOUT le texte : paragraphes, accroches
+                            des projets, boutons, liens (19px, 1.55)
+     Label    Inter 500 cap menu, libellés, pied de page, « Copier »
+   Aucun gras dans les bento des projets.
+   ============================================================ */
+:root {
+  --t-display: min(86px, calc((100vw - 2 * var(--marge)) / 9));
+  --t-medium: clamp(22px, 1.9vw, 27px);
+  --t-texte: 19px;
+  --t-label: 12px;
+  --t-xl: var(--t-display);
+  --t-l: var(--t-display);
+  --t-m: var(--t-medium);
+  --t-s: var(--t-medium);
+  --t-body: var(--t-texte);
+  --t-body-l: var(--t-texte);
+}
+@media (max-width: 899px) {
+  :root { --t-display: calc((100vw - 2 * var(--marge)) / 7); --t-texte: 17px; }
+}
+
+/* le hero suit la même taille que tous les grands titres */
+body.v36 .hero h1.display { font-size: var(--t-display); }
+
+/* le texte : un seul registre, lisible */
+.v36 p, .v36 .lien, .v36 .btn, .v36 li { font-size: var(--t-texte); }
+.v36 .hero p, .v36 .sf-ligne p, .v36 .bio-texte p, .v36 .box-faq .detail-in p, .v36 .contact p { line-height: 1.55; }
+
+/* les bento des projets : libellé, puis l'accroche en texte courant,
+   sans gras, puis le lien — l'image domine */
+.v36 #projets .accroche {
+  font-family: var(--grotesk);
+  font-weight: 400;
+  font-size: var(--t-texte);
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+.v36 #projets .accroche strong,
+.v36 .box strong { font-weight: inherit; }
+.v36 #projets .plus { font-size: var(--t-texte); }
+
+/* les petits textes rejoignent le label */
+.v36 .copier,
+.v36 .contact footer .ui,
+.v36 .contact footer p,
+.v36 .contact footer a,
+.v36 .fermer-btn { font-size: var(--t-label); }
+
+
+/* ============================================================
+   V34 — retours du 02.10
+   ÉCHELLE : 5 tailles
+     Hero     Poppins 500  « Direction marketing / externalisée. »,
+                           TOUJOURS sur deux lignes (96px laptop,
+                           ~36px mobile : la ligne la plus longue
+                           mesure 9.33em)
+     Titre    Poppins 500  tous les autres grands titres (60px / ~31px)
+     Medium   Poppins 500  mots du Venn, questions FAQ, « Un projet… »
+     Texte    Inter        tout le texte (19px / 17px)
+     Label    Inter cap.   menu, libellés, pied de page (12px)
+   ============================================================ */
+:root {
+  --t-hero: min(96px, calc((100vw - 2 * var(--marge)) / 9.45));
+  --t-display: min(60px, calc((100vw - 2 * var(--marge)) / 11));
+}
+@media (max-width: 899px) {
+  :root { --t-display: calc((100vw - 2 * var(--marge)) / 11); }
+}
+body.v36 .hero h1.display { font-size: var(--t-hero); }
+body.v36 .hero h1 .ligne,
+body.v36 .hero h1 .ligne:first-child { white-space: nowrap; }
+
+/* ------------------------------------------------------------
+   SAVOIR-FAIRE — titre, Venn et légende dans un seul écran
+   ------------------------------------------------------------ */
+.v36 .savoir-faire { padding: clamp(64px, 6vw, 88px) var(--marge) clamp(40px, 5vw, 72px); }
+.v36 .savoir-faire > .titre { margin-bottom: clamp(20px, 2.4vw, 32px); }
+.v36 .venn-bloc { display: flex; flex-direction: column; align-items: center; gap: clamp(20px, 2.4vw, 32px); }
+/* le Venn se dimensionne sur la hauteur d'écran pour que tout tienne */
+.v36 .venn-figure {
+  position: relative;
+  width: clamp(300px, calc((100svh - 450px) * 1.06), 460px);
+  max-width: 100%;
+}
+.v36 .venn-figure svg { display: block; width: 100%; height: auto; overflow: visible; isolation: isolate; }
+.v36 .venn-figure circle {
+  stroke: var(--encre);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+  mix-blend-mode: multiply;
+}
+.v36 .venn-figure .c-1, .v36 .venn-legende .c-1 { fill: color-mix(in srgb, var(--signature) 16%, var(--blanc)); background: color-mix(in srgb, var(--signature) 16%, var(--blanc)); }
+.v36 .venn-figure .c-2, .v36 .venn-legende .c-2 { fill: color-mix(in srgb, var(--signature) 30%, var(--blanc)); background: color-mix(in srgb, var(--signature) 30%, var(--blanc)); }
+.v36 .venn-figure .c-3, .v36 .venn-legende .c-3 { fill: color-mix(in srgb, var(--signature) 8%, var(--blanc)); background: color-mix(in srgb, var(--signature) 8%, var(--blanc)); }
+.v36 .venn-mot,
+.v36 .venn-centre {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  text-align: center;
+}
+.v36 .venn-mot { font-family: var(--titres); font-weight: 500; font-size: var(--t-medium); line-height: 1; letter-spacing: -0.02em; color: var(--encre); }
+.v36 .m-1 { left: 24%; top: 32%; }
+.v36 .m-2 { left: 80%; top: 32%; } /* sur deux lignes, dans sa zone propre */
+.v36 .m-3 { left: 50%; top: 84%; }
+.v36 .venn-centre {
+  left: 50%; top: 44.5%;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: var(--encre);
+  color: var(--blanc);
+  font-size: var(--t-texte);
+  font-weight: 500;
+  line-height: 1.2;
+}
+/* la légende : trois colonnes sous le Venn, le mot en bleu */
+.v36 .venn-legende {
+  list-style: none;
+  width: 100%;
+  max-width: var(--large);
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px clamp(24px, 3vw, 48px);
+  text-align: left;
+}
+.v36 .venn-legende li { display: flex; align-items: flex-start; gap: 12px; margin: 0; }
+.v36 .venn-legende .carre {
+  flex: none;
+  width: 14px; height: 14px;
+  margin: 0.32em 0 0;
+  border: 1.5px solid var(--encre);
+  border-radius: 3px;
+}
+.v36 .venn-legende p { font-size: var(--t-texte); line-height: 1.5; }
+.v36 .venn-nom { color: var(--signature); font-weight: 500; }
+
+/* ------------------------------------------------------------
+   BIO — sur mobile : nom, un extrait, les logos, la suite au clic
+   ------------------------------------------------------------ */
+.v36 .bio-corps { display: flex; flex-direction: column; gap: 16px; }
+.v36 .bio-plus { display: none; }
+
+/* ------------------------------------------------------------
+   MOBILE
+   ------------------------------------------------------------ */
+@media (max-width: 899px) {
+  /* savoir-faire : tout dans l'écran */
+  .v36 .savoir-faire { padding: 66px var(--marge) 40px; }
+  .v36 .venn-bloc { gap: 16px; }
+  .v36 .venn-figure { width: clamp(220px, calc((100svh - 540px) * 1.06), 270px); }
+  .v36 .m-1 { left: 25%; }
+  .v36 .m-2 { left: 79%; }
+  .v36 .venn-centre { padding: 5px 11px; }
+  .v36 .venn-legende { grid-template-columns: 1fr; gap: 12px; }
+  .v36 .venn-legende p { line-height: 1.4; }
+
+  /* projets : deux colonnes décalées, on en voit deux d'emblée */
+  .v36 #projets { padding-top: 76px; }
+  .v36 #projets .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; align-items: start; }
+  .v36 #projets .bento > .box:nth-child(even) { margin-top: 36px; }
+  .v36 #projets .bento > .depliable.ouverte { grid-column: 1 / -1; margin-top: 0; }
+  .v36 #projets .box-tete { gap: 8px; padding-bottom: 14px; }
+  .v36 #projets .box-tete > .ui { padding: 0 12px; }
+  .v36 #projets .accroche { padding: 0 12px; }
+  .v36 #projets .plus { margin: 2px 12px 0; }
+  .v36 #projets .box-cta { padding: 16px; gap: 20px; }
+
+  /* bio : extrait fondu, puis « Plus d'infos ↓ » */
+  .v36 .bio-tete { gap: 14px; }
+  .v36 .bio-photo { width: 88px; height: 88px; }
+  .v36 .bio-corps {
+    max-height: 6.4em;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent);
+    mask-image: linear-gradient(180deg, #000 55%, transparent);
+  }
+  .v36 .bio-ouverte .bio-corps { max-height: none; -webkit-mask-image: none; mask-image: none; }
+  .v36 .bio-plus {
+    display: inline-flex;
+    align-self: flex-start;
+    gap: 4px;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: var(--encre);
+    font: inherit;
+    font-size: var(--t-texte);
+    font-weight: 500;
+  }
+  .v36 .bio-plus .arr { transition: transform 0.25s ease; }
+  .v36 .bio-ouverte .bio-plus .arr { transform: rotate(180deg); }
+}
+
+
+/* ============================================================
+   V35 — retours du 02.10 (2)
+   ============================================================ */
+/* mobile : les titres de section plus petits (le titre des projets
+   passe de 6 à 4 lignes) ; le medium suit pour garder l'écart */
+@media (max-width: 899px) {
+  :root { --t-display: calc((100vw - 2 * var(--marge)) / 13.5); --t-medium: 20px; }
+}
+
+/* ------------------------------------------------------------
+   SAVOIR-FAIRE — trois bento teintées (les densités du bleu),
+   reliées par deux flèches : → sur laptop, ↓ sur mobile
+   ------------------------------------------------------------ */
+.v36 .sf-chaine {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: stretch;
+  gap: 0 clamp(10px, 1.2vw, 16px);
+}
+.v36 .sf-bento {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: clamp(22px, 2.4vw, 32px);
+  border: var(--filet) solid var(--encre);
+  border-radius: var(--rayon);
+}
+.v36 .sf-t1 { background: color-mix(in srgb, var(--signature) 8%, var(--blanc)); }
+.v36 .sf-t2 { background: color-mix(in srgb, var(--signature) 18%, var(--blanc)); }
+.v36 .sf-t3 { background: color-mix(in srgb, var(--signature) 30%, var(--blanc)); }
+.v36 .sf-bento .sf-titre {
+  position: static;
+  font-family: var(--titres);
+  font-weight: 500;
+  font-size: var(--t-medium);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-transform: none;
+  color: var(--encre);
+}
+.v36 .sf-bento p { padding: 0; font-size: var(--t-texte); line-height: 1.5; }
+.v36 .sf-fleche {
+  align-self: center;
+  font-family: var(--titres);
+  font-weight: 500;
+  font-size: var(--t-medium);
+  line-height: 1;
+  color: var(--signature);
+}
+@media (max-width: 899px) {
+  .v36 .sf-chaine { grid-template-columns: 1fr; justify-items: stretch; gap: 8px 0; }
+  .v36 .sf-fleche { justify-self: center; transform: rotate(90deg); }
+  .v36 .sf-bento { gap: 8px; padding: 18px; }
+}
+
+/* ------------------------------------------------------------
+   PROJETS mobile — deux colonnes décalées, écarts IDENTIQUES :
+   les bento d'une rangée ont la même hauteur, la colonne de
+   droite est décalée d'un bloc (translate), l'écart vertical
+   reste l'écart horizontal partout
+   ------------------------------------------------------------ */
+@media (max-width: 899px) {
+  .v36 #projets .bento { gap: 10px; align-items: stretch; padding-bottom: 36px; }
+  .v36 #projets .bento > .box:nth-child(even) { margin-top: 0; transform: translateY(36px); }
+  .v36 #projets .bento > .depliable.ouverte { transform: none; }
+}
+
+
+/* ============================================================
+   V36 — mise en ligne
+   ÉCHELLE FINALE — 5 tailles, 2 graisses par police, pour toute la page
+     Hero    Poppins 500   « Direction marketing / externalisée. »
+     Titre   Poppins 500   titres de section, mots du savoir-faire, nom
+     Medium  Poppins 500   questions FAQ, « Un projet en tête ? »
+     Texte   Inter 400     tout le texte courant ; 500 pour liens et boutons
+     Label   Inter 500 cap menu, libellés (13px), pied de page
+   Une seule flèche ↓ pour tout ce qui se déroule (projets, FAQ, bio).
+   ============================================================ */
+:root { --t-label: 13px; }
+
+/* ------------------------------------------------------------
+   SAVOIR-FAIRE — le socle : Stratégie | Mise en œuvre, puis
+   Équipe sur toute la largeur ; bleu plein, texte blanc, aligné
+   ------------------------------------------------------------ */
+.v36 .sf-socle {
+  --pad: clamp(26px, 3vw, 44px);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.v36 .sf-bento {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: var(--pad);
+  background: var(--signature);
+  color: var(--blanc);
+  border: none;
+  border-radius: var(--rayon);
+}
+/* Équipe : le mot à gauche, le texte calé sur la colonne de Mise en œuvre */
+.v36 .sf-c {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: calc(16px + 2 * var(--pad));
+  align-items: start;
+}
+.v36 .sf-bento .sf-titre {
+  position: static;
+  font-family: var(--titres);
+  font-weight: 500;
+  font-size: var(--t-display);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  text-transform: none;
+  color: var(--blanc);
+}
+.v36 .sf-bento p { padding: 0; max-width: 34em; font-size: var(--t-texte); line-height: 1.5; color: var(--blanc); }
+@media (max-width: 899px) {
+  .v36 .sf-socle { grid-template-columns: 1fr; gap: 10px; }
+  .v36 .sf-c { display: flex; }
+  .v36 .sf-bento { gap: 10px; padding: 20px; }
+}
+
+/* ------------------------------------------------------------
+   LA FLÈCHE — un seul signe pour « ça se déroule »
+   ------------------------------------------------------------ */
+.v36 .fleche {
+  display: inline-block;
+  font-family: var(--grotesk);
+  font-weight: 500;
+  font-size: var(--t-texte);
+  line-height: 1;
+  text-decoration: none;
+  transition: transform 0.25s ease;
+}
+.v36 #projets .plus.fleche { align-self: flex-end; margin: 4px 20px 0 0; color: inherit; }
+.v36 .box-faq .signe.fleche { font-size: var(--t-texte); }
+.v36 .box-faq.ouverte .signe.fleche { transform: rotate(180deg); }
+.v36 .bio-plus.fleche { font-size: var(--t-texte); }
+.v36 .bio-ouverte .bio-plus.fleche { transform: rotate(180deg); }
+@media (max-width: 899px) { .v36 #projets .plus.fleche { margin-right: 12px; } }
+
+/* ------------------------------------------------------------
+   FAQ — que de la typographie : plus de filets
+   ------------------------------------------------------------ */
+.v36 .box-faq,
+.v36 .depliable.box-faq.ouverte,
+.v36 .depliable.box-faq:not(.ouverte):hover { border: none; padding: 12px 0; }
+.v36 .faq .bento .box-faq:last-child { border-bottom: none; }
+.v36 .depliable.box-faq:not(.ouverte):hover .accroche { text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 6px; }
+
+/* ------------------------------------------------------------
+   LANGUES — le même composant au menu et au pied de page :
+   capitales au label, la langue active dans une pastille ronde bleue
+   ------------------------------------------------------------ */
+.v36 .term a.lang,
+.v36 .contact footer .langues a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  height: 34px;
+  padding: 0 6px;
+  border-radius: 999px;
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.v36 .term a.lang.langue-active,
+.v36 .contact footer .langues a.langue-active { background: var(--signature); color: var(--blanc); }
+.v36 .contact footer .langues { gap: 2px; align-items: center; }
+.v36 .contact footer p { align-items: center; }
+@media (max-width: 899px) {
+  .v36 .term a.lang { min-width: 30px; height: 30px; padding: 0 4px; }
+}
+
+/* deux graisses par police : Inter 400 / 500, Poppins 500 */
+.v36 .box-faq .detail-in b { font-weight: 500; }
+.v36 .fermer-btn .croix { font-size: var(--t-texte); }
+
+/* le hero : la ligne la plus longue mesurée par langue (en em) */
+html[lang^="de"] body.v36 { --hero-em: 8.35; }
+html[lang="en"] body.v36 { --hero-em: 9.95; }
+body.v36 .hero h1.display { font-size: min(96px, calc((100vw - 2 * var(--marge)) / var(--hero-em, 9.45))); }
+
+/* menu mobile : tient à 375px en FR, DE (« Über mich ») et EN, et à 320px */
+@media (max-width: 459px) {
+  .v36 .term { padding: 3px; }
+  .v36 .term .profil { padding: 0 2px 0 0; }
+  .v36 .term .profil img { width: 30px; height: 30px; }
+  .v36 .term a:not(.profil):not(.lang) { padding: 8px 4px; letter-spacing: 0.03em; }
+  .v36 .term a.lang { min-width: 26px; height: 26px; padding: 0 3px; letter-spacing: 0.03em; }
+  .v36 .term .sep { margin: 0 1px; }
+}
+@media (max-width: 359px) {
+  .v36 .term { max-width: calc(100vw - 12px); gap: 0; }
+  .v36 .term .sep { display: none; }
+  .v36 .term a:not(.profil):not(.lang) { padding: 8px 2px; letter-spacing: 0; }
+  .v36 .term a.lang { min-width: 22px; height: 22px; padding: 0 1px; letter-spacing: 0; }
+  .v36 .term .profil img { width: 26px; height: 26px; }
+}
+
+
+/* ============================================================
+   V37 — le marketing accéléré
+   Remplace le savoir-faire : UNE carte bleue, deux phrases à la
+   taille Titre, une flèche → ; au clic, la carte s'allonge et
+   montre « Ce que je propose » et six points (3 × 2 / 2 / 1).
+   Aucune nouvelle taille : Titre pour les phrases, Texte pour
+   tout le reste (Inter 500 titres, 400 phrases).
+   ============================================================ */
+.v36 .ia { background: var(--trame-bleue), var(--blanc); padding: var(--chapitre) var(--marge); }
+.v36 .ia-carte {
+  --pad: clamp(26px, 3vw, 44px);
+  width: 100%;
+  max-width: var(--large);
+  margin-inline: auto;
+  background: var(--signature);
+  color: var(--blanc);
+  border-radius: var(--rayon);
+  cursor: pointer;
+}
+.v36 .ia-tete {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 24px;
+  width: 100%;
+  padding: var(--pad);
+  background: none;
+  border: none;
+  border-radius: var(--rayon);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.v36 .ia-tete:focus-visible { outline: 3px solid var(--encre); outline-offset: 4px; }
+.v36 .ia-texte {
+  max-width: 22ch;
+  font-family: var(--titres);
+  font-weight: 500;
+  font-size: var(--t-l);
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+  text-wrap: pretty;
+}
+.v36 .ia-fleche {
+  align-self: flex-end;
+  font-family: var(--grotesk);
+  font-weight: 500;
+  font-size: var(--t-texte);
+  line-height: 1;
+  transition: transform 0.25s ease-out;
+}
+.v36 .ia-carte.ouverte .ia-fleche { transform: rotate(90deg); }
+
+/* le détail : présent dans le HTML, replié par la hauteur de sa rangée */
+.v36 .ia-details {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  visibility: hidden;
+  transition: grid-template-rows 0.25s ease-out, opacity 0.25s ease-out, visibility 0s linear 0.25s;
+}
+.v36 .ia-carte.ouverte .ia-details {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  visibility: visible;
+  transition: grid-template-rows 0.25s ease-out, opacity 0.25s ease-out, visibility 0s;
+}
+.v36 .ia-in { min-height: 0; overflow: hidden; }
+.v36 .ia-titre,
+.v36 .ia-points h3,
+.v36 .ia-points p { font-family: var(--grotesk); font-size: var(--t-texte); line-height: 1.5; letter-spacing: 0; text-transform: none; color: var(--blanc); }
+.v36 .ia-titre { margin: 0 var(--pad) 20px; font-weight: 500; }
+.v36 .ia-points {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px 32px;
+  margin: 0;
+  padding: 0 var(--pad) var(--pad);
+  list-style: none;
+}
+.v36 .ia-points li { margin: 0; padding: 0; }
+.v36 .ia-points li::before { content: none; }
+.v36 .ia-points h3 { margin: 0; font-weight: 500; }
+.v36 .ia-points p { margin: 0; padding: 0; font-weight: 400; }
+@media (max-width: 1099px) {
+  .v36 .ia-points { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 639px) {
+  .v36 .ia-carte { --pad: 20px; }
+  .v36 .ia-tete { gap: 16px; }
+  .v36 .ia-points { grid-template-columns: 1fr; gap: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .v36 .ia-details, .v36 .ia-carte.ouverte .ia-details, .v36 .ia-fleche { transition: none; }
+}
+
+
+/* ============================================================
+   V38 — deux retouches, aucune taille nouvelle
+   (1) l'intro des projets passe à la taille Medium (celle des
+       questions FAQ) : elle annonce, elle ne crie plus ;
+   (2) la carte du marketing accéléré prend l'habit de la bio :
+       blanc, filet noir 2px, phrases en bleu sur toute la largeur
+       (4 lignes au plus en laptop), le détail en noir.
+   ============================================================ */
+.v36 #projets > .intro {
+  max-width: 34em;
+  font-size: var(--t-medium);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+.v36 .ia-carte {
+  --pad: clamp(24px, 2.6vw, 36px);
+  background: var(--blanc);
+  color: var(--encre);
+  border: var(--filet) solid var(--encre);
+}
+.v36 .ia-texte { max-width: none; color: var(--signature); }
+.v36 .ia-titre,
+.v36 .ia-points h3,
+.v36 .ia-points p { color: var(--encre); }
+.v36 .ia-tete:focus-visible { outline-color: var(--signature); }
+@media (max-width: 639px) { .v36 .ia-carte { --pad: 20px; } }
+
+/* la flèche « lire la suite » de la bio n'existe que sur mobile :
+   la règle commune .fleche (display: inline-block) la faisait
+   réapparaître en laptop, en barre grise sous le texte */
+@media (min-width: 900px) { .v36 .bio-plus.fleche { display: none; } }
+
+/* projets sur téléphone : une seule colonne — en deux colonnes,
+   les accroches tombaient à deux mots par ligne, illisibles ;
+   les deux colonnes décalées restent pour les tablettes */
+@media (max-width: 639px) {
+  .v36 #projets .bento { grid-template-columns: minmax(0, 1fr); gap: 12px; padding-bottom: 0; }
+  .v36 #projets .bento > .box:nth-child(even) { transform: none; margin-top: 0; }
+  .v36 #projets .box-tete { gap: 10px; padding-bottom: 16px; }
+  .v36 #projets .box-tete > .ui,
+  .v36 #projets .accroche { padding: 0 16px; }
+  .v36 #projets .plus.fleche { margin-right: 16px; }
+  .v36 #projets .box-cta { padding: 20px; }
+}
+
+/* la bento bio se touche partout sur mobile */
+@media (max-width: 899px) { .v36 .bio-texte { cursor: pointer; } }
+
+/* ============================================================
+   V39·calme — le même site, un bleu un peu plus calme :
+   #3B4FCF (oklch .49 / chroma .20) au lieu de #3223F4 (chroma .28),
+   même teinte, moins saturé, un cran plus clair ; survol #3242B4
+   ============================================================ */
+:root { --signature: #3B4FCF; --signature-fonce: #3242B4; }
+.v36 .hero {
+  background:
+    var(--trame),
+    radial-gradient(circle at 75% 20%, rgba(110, 128, 230, 0.45) 0%, rgba(59, 79, 207, 0) 46%),
+    linear-gradient(135deg, var(--signature) 0%, var(--signature-fonce) 100%);
+}

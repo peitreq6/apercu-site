@@ -1,0 +1,13 @@
+{
+  "cleanUrls": true,
+  "redirects": [
+    { "source": "/a-propos", "destination": "/#a-propos" },
+    { "source": "/contact", "destination": "/#contact" },
+    { "source": "/projets", "destination": "/#projets" },
+    { "source": "/projets/wingo", "destination": "/#wingo" },
+    { "source": "/projets/fischer", "destination": "/#fischer" },
+    { "source": "/projets/bristol", "destination": "/#bristol" },
+    { "source": "/projets/isl", "destination": "/#isl" },
+    { "source": "/projets/spatz", "destination": "/#spatz" }
+  ]
+}

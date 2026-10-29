@@ -1,0 +1,423 @@
+/* ============================================================
+   V29 — proportions, bento et cohérence (page d'accueil FR seule,
+   chargée après home.css ; DE et EN gardent home.css).
+   Même direction que la V28 — centré, bleu #3223F4 / blanc / noir,
+   bento, trame suisse — mais plus dense : plus de contenu visible
+   dans moins de hauteur.
+
+   ÉCHELLE TYPOGRAPHIQUE — 7 tailles, pas une de plus
+     --t-xl     display XL  hero (et CTA final)   Poppins 500, capitales au hero
+     --t-l      display L   titres de section     Poppins 500
+     --t-m      H2          titres de bento CTA   Poppins 500
+     --t-s      H3          titres de bento, accroches, questions FAQ
+     --t-body-l body L      sous-titre du hero
+     --t-body   body        textes courants       Inter 400
+     --t-label  label       menu, libellés        Inter 500 capitales
+   Interlignage et approche identiques pour tous les titres équivalents.
+   ============================================================ */
+:root {
+  --signature: #3223F4;
+  --signature-fonce: #2819D8;
+  --violet: var(--signature);            /* tous les survols hérités suivent */
+
+  --t-xl: min(92px, calc((100vw - 2 * var(--marge)) / 10.7));
+  --t-l: clamp(34px, 3.9vw, 58px);
+  --t-m: clamp(28px, 2.6vw, 38px);
+  --t-s: clamp(19px, 1.55vw, 23px);
+  --t-body-l: 19px;
+  --t-body: 17px;
+  --t-label: 12px;
+
+  --chapitre: clamp(64px, 7vw, 104px);   /* padding vertical des sections */
+  --large: 1280px;
+  --rayon: 22px;
+  --filet: 2px;
+  --filet-blanc: rgba(255, 255, 255, 0.45);
+  /* la trame suisse : un seul fond continu, posé sous les sections bleues */
+  --trame: url("trame-suisse.svg") center top / 1440px auto repeat;
+}
+@media (max-width: 899px) {
+  :root { --t-xl: calc((100vw - 2 * var(--marge)) / 6.7); --t-body-l: 17px; --chapitre: clamp(56px, 16vw, 80px); }
+}
+
+/* le fond de page EST la trame sur le bleu : les sections bleues sont
+   transparentes et la laissent filer d'une section à l'autre ; les
+   sections blanches la couvrent */
+body.v29 { background: var(--trame), var(--signature); }
+body.v29::before { content: none; }
+body.v29 > main { padding-bottom: 0; }
+.v29 ::selection { background: var(--signature); color: var(--blanc); }
+
+/* les registres */
+.v29 .titre, .v29 .intro, .v29 .cta-titre, .v29 .sf-titre, .v29 .accroche {
+  font-family: var(--titres);
+  font-weight: 500;
+  text-wrap: balance;
+}
+.v29 .titre, .v29 .intro { font-size: var(--t-l); line-height: 1; letter-spacing: -0.035em; }
+.v29 .ui, .v29 .term { font-family: var(--grotesk); font-size: var(--t-label); font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; }
+.v29 .titre .ligne { display: block; }
+.v29 .insecable { white-space: nowrap; }
+
+/* un axe central, une largeur maîtrisée */
+.v29 .hero-centre,
+.v29 .savoir-faire > *,
+.v29 #projets > *,
+.v29 .bio-grille,
+.v29 .faq > *,
+.v29 .contact .centre { width: 100%; max-width: var(--large); margin-inline: auto; }
+.v29 .savoir-faire > .titre,
+.v29 #projets > .intro,
+.v29 .faq > .titre { text-align: center; }
+
+/* ------------------------------------------------------------
+   MENU — un ensemble compact : carré bleu, nom, liens, langues,
+   tous au registre des labels
+   ------------------------------------------------------------ */
+.v29 .term {
+  top: 14px;
+  gap: 2px;
+  padding: 4px;
+  background: var(--blanc);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  border: 1.5px solid var(--encre);
+  border-radius: 12px;
+  box-shadow: none;
+}
+.v29 .term .dot {
+  width: 10px; height: 10px;
+  margin: 0 2px 0 10px;
+  border-radius: 2px;
+  background: var(--signature);
+  pointer-events: none;
+}
+.v29 .term .dot::after { content: none; }
+.v29 .term a { padding: 8px 10px; border-radius: 8px; color: var(--encre); font-size: var(--t-label); }
+.v29 .term a.lang { padding: 8px 7px; font-size: var(--t-label); }
+.v29 .term .nom { letter-spacing: 0.1em; }
+.v29 .term a:hover { background: var(--signature); color: var(--blanc); }
+.v29 .term a.actif { background: transparent; color: var(--signature); }
+.v29 .term a.lang.langue-active,
+.v29 .term a.lang.langue-active:hover { background: var(--signature); color: var(--blanc); border-radius: 8px; }
+.v29 .term .sep { height: 14px; margin: 0 4px; background: rgba(0, 0, 0, 0.2); }
+@media (max-width: 899px) {
+  .v29 .term .nom, .v29 .term .nom + .sep { display: none; }
+  .v29 .term { top: 10px; }
+  .v29 .term .dot { margin: 0 4px 0 8px; }
+  .v29 .term a { padding: 8px 6px; letter-spacing: 0.06em; }
+  .v29 .term a.lang { padding: 7px 5px; }
+}
+@media (max-width: 359px) { .v29 .term .dot { display: none; } }
+
+/* ------------------------------------------------------------
+   1. HERO — centré, ~30 % plus petit, EXTERNALISÉE toujours seule
+   ------------------------------------------------------------ */
+.v29 .hero {
+  display: block;
+  place-items: normal;
+  min-height: 0;
+  padding: 0 var(--marge);
+  color: var(--blanc);
+  overflow: hidden;
+  background:
+    var(--trame),
+    radial-gradient(circle at 75% 20%, rgba(90, 70, 255, 0.55) 0%, rgba(50, 35, 244, 0) 46%),
+    linear-gradient(135deg, var(--signature) 0%, var(--signature-fonce) 100%);
+}
+.v29 .hero::after { content: none; }
+.v29 .hero-centre {
+  min-height: 86svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 28px;
+  padding: 104px 0 72px;
+}
+/* chaque .ligne est un bloc : « EXTERNALISÉE. » ne remonte jamais.
+   Ordinateur : DIRECTION MARKETING / EXTERNALISÉE. ; mobile : la
+   première ligne se coupe entre ses deux mots, jamais ailleurs */
+body.v29 .hero h1.display {
+  margin: 0;
+  max-width: none;
+  font-size: var(--t-xl);
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  color: var(--blanc);
+}
+body.v29 .hero h1 .ligne { display: block; white-space: nowrap; }
+@media (max-width: 899px) { body.v29 .hero h1 .ligne:first-child { white-space: normal; } }
+body.v29 .hero p { max-width: 32em; font-size: var(--t-body-l); line-height: 1.5; color: var(--blanc); }
+/* les deux CTA : un seul ensemble, même gabarit, centrés */
+.v29 .hero-cta { flex-direction: row; justify-content: center; align-items: stretch; gap: 12px; margin: 0; flex-wrap: wrap; }
+.v29 .hero-cta .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 13.5em;
+  padding: 14px 22px;
+  border: var(--filet) solid var(--blanc);
+  border-radius: 12px;
+  background: var(--blanc);
+  color: var(--signature);
+  font-size: var(--t-body);
+}
+.v29 .hero-cta .btn-ligne { background: transparent; color: var(--blanc); }
+.v29 .hero-cta .btn:hover { background: var(--encre); border-color: var(--encre); color: var(--blanc); }
+
+/* ------------------------------------------------------------
+   BENTO — le système commun : posées AU-DESSUS du fond, filet net,
+   blanc au repos, bleu au survol, sans ombre
+   ------------------------------------------------------------ */
+.v29 .sf-box,
+.v29 #projets .box,
+.v29 #projets .depliable.ouverte {
+  position: relative;
+  background: var(--blanc);
+  color: var(--encre);
+  border: var(--filet) solid var(--encre);
+  border-radius: var(--rayon);
+  transform: none;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.v29 .sf-box:hover,
+.v29 #projets .box:hover,
+.v29 #projets .depliable:not(.ouverte):hover,
+.v29 #projets .depliable.ouverte {
+  background: var(--signature);
+  color: var(--blanc);
+  border-color: var(--blanc);
+  transform: none;
+}
+.v29 .box .ui::before { content: none; }
+
+/* ------------------------------------------------------------
+   2. SAVOIR-FAIRE — blanc, trois bento compactes visibles ensemble
+   ------------------------------------------------------------ */
+.v29 .savoir-faire {
+  max-width: none;
+  margin: 0;
+  padding: var(--chapitre) var(--marge);
+  background: var(--blanc);
+}
+.v29 .savoir-faire > .titre { margin-bottom: clamp(32px, 3.6vw, 52px); color: var(--encre); }
+.v29 .sf-grille {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr 1fr;
+  gap: 16px;
+}
+.v29 .sf-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+  min-height: clamp(220px, 20vw, 280px);
+  padding: clamp(22px, 2.2vw, 30px);
+}
+.v29 .sf-titre {
+  font-size: var(--t-m);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: var(--signature);
+}
+.v29 .sf-box p { font-size: var(--t-body); line-height: 1.5; }
+.v29 .sf-box:hover .sf-titre { color: var(--blanc); }
+/* la première bento, plus large, porte le titre en grand */
+.v29 .sf-box:first-child .sf-titre { font-size: var(--t-l); }
+
+/* ------------------------------------------------------------
+   3. PROJETS — bleu tramé, bento blanches 3 colonnes, image dominante
+   ------------------------------------------------------------ */
+.v29 #projets { padding: var(--chapitre) var(--marge); background: transparent; color: var(--blanc); }
+.v29 #projets > .intro { max-width: 18em; padding: 0; color: var(--blanc); }
+.v29 #projets .bento {
+  margin-top: clamp(32px, 3.6vw, 52px);
+  padding: 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.v29 #projets .bento > .box { grid-column: auto; }
+.v29 #projets .bento > .depliable.ouverte { grid-column: 1 / -1; }
+.v29 #projets .box {
+  min-height: 0;
+  padding: 0;
+  gap: 0;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+.v29 #projets .box-tete { justify-content: flex-start; gap: 10px; padding-bottom: 20px; }
+/* l'image bord à bord, en tête : plus de la moitié de la bento */
+.v29 #projets .apercu {
+  order: -2;
+  aspect-ratio: 4 / 3;
+  margin-bottom: 8px;
+  border-radius: 0;
+  border-bottom: var(--filet) solid var(--encre);
+  background: var(--blanc);
+}
+.v29 #projets .apercu-contenue img { padding: 12%; }
+.v29 #projets .box-tete > .ui { order: -1; padding: 0 20px; color: var(--signature); }
+.v29 #projets .accroche {
+  max-width: none;
+  padding: 0 20px;
+  font-size: var(--t-s);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: inherit;
+}
+.v29 #projets .accroche strong { font-weight: 500; }
+.v29 #projets .plus { margin: 4px 20px 0; align-self: flex-start; color: inherit; font-size: 15px; }
+.v29 #projets .box:hover .ui,
+.v29 #projets .depliable.ouverte .ui { color: var(--blanc); }
+.v29 #projets .box:hover .apercu { border-bottom-color: var(--blanc); }
+.v29 #projets .lien:hover,
+.v29 #projets .depliable .lien:hover { color: var(--blanc); text-decoration-color: var(--blanc); }
+
+/* le cas ouvert : pleine largeur, le détail sur le bleu */
+.v29 #projets .depliable.ouverte .box-tete { padding: 24px 150px 0 24px; }
+.v29 #projets .fermer-btn { top: 16px; right: 16px; color: var(--blanc); }
+.v29 #projets .detail-in { padding: 24px; }
+.v29 #projets .detail-in > img { max-height: 520px; object-fit: cover; border-radius: 12px; }
+.v29 #projets .mission { font-family: var(--titres); font-weight: 500; font-size: var(--t-m); line-height: 1.05; letter-spacing: -0.03em; }
+.v29 #projets .depliable.ouverte h3 { color: var(--blanc); }
+.v29 #projets .detail-blocs-3 p, .v29 #projets .chiffres li { font-size: var(--t-body); }
+
+/* l'appel de fin : la seule bento noire */
+.v29 #projets .box-cta,
+.v29 #projets a.box-cta:hover {
+  justify-content: space-between;
+  gap: 32px;
+  padding: clamp(22px, 2.2vw, 30px);
+  background: var(--encre);
+  border-color: var(--encre);
+  color: var(--blanc);
+}
+.v29 #projets a.box-cta:hover { border-color: var(--blanc); }
+.v29 #projets .box-cta .cta-titre { max-width: 8em; font-size: var(--t-l); line-height: 1; letter-spacing: -0.035em; color: var(--blanc); }
+.v29 #projets .box-cta .btn { align-self: flex-start; border-radius: 12px; background: var(--signature); color: var(--blanc); }
+.v29 #projets a.box-cta:hover .btn { background: var(--blanc); color: var(--encre); }
+
+/* ------------------------------------------------------------
+   4. BIO — une grande composition : photo | nom + bio, puis logos
+   ------------------------------------------------------------ */
+.v29 .apropos { padding: var(--chapitre) var(--marge); background: var(--blanc); }
+.v29 .bio-grille {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 16px;
+}
+.v29 .bio-photo,
+.v29 .bio-texte,
+.v29 .refs { border: var(--filet) solid var(--encre); border-radius: var(--rayon); overflow: hidden; }
+.v29 .bio-photo { grid-column: 1 / 6; margin: 0; }
+.v29 .bio-photo img { display: block; width: 100%; height: 100%; max-height: min(500px, 52svh); object-fit: cover; object-position: 50% 30%; filter: grayscale(1); }
+.v29 .bio-texte {
+  grid-column: 6 / -1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 16px;
+  padding: clamp(24px, 3vw, 44px);
+}
+.v29 .bio-texte .ui { margin-bottom: auto; color: var(--signature); }
+.v29 .bio-texte .titre { color: var(--encre); }
+.v29 .bio-texte p { max-width: 36em; font-size: var(--t-body); line-height: 1.55; }
+/* les logos : une seule bento, une collection libre, sans filets */
+.v29 .refs {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: clamp(22px, 2.6vw, 36px) clamp(24px, 3vw, 44px) clamp(28px, 3vw, 44px);
+}
+.v29 .refs > .ui { color: var(--signature); }
+.v29 .refs-grille {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  justify-items: center;
+  align-items: center;
+  gap: 36px 40px;
+  padding: 8px 0;
+}
+.v29 .refs-grille img { height: clamp(24px, 2.2vw, 32px); width: auto; max-width: 100%; filter: brightness(0); }
+.v29 .refs-grille img.lg-haut { height: clamp(34px, 3vw, 44px); }
+
+/* ------------------------------------------------------------
+   5. FAQ — compacte : 4 questions au moins dans l'écran
+   ------------------------------------------------------------ */
+.v29 .faq { padding: var(--chapitre) var(--marge); background: transparent; color: var(--blanc); }
+.v29 .faq > .titre { margin-bottom: clamp(28px, 3vw, 44px); color: var(--blanc); }
+.v29 .faq .bento { display: block; max-width: 900px; padding: 0; }
+.v29 .box-faq,
+.v29 .depliable.box-faq.ouverte,
+.v29 .depliable.box-faq:not(.ouverte):hover {
+  padding: 16px 0;
+  background: transparent;
+  border: none;
+  border-top: 1px solid var(--filet-blanc);
+  border-radius: 0;
+  color: var(--blanc);
+  transform: none;
+}
+.v29 .faq .bento .box-faq:last-child { border-bottom: 1px solid var(--filet-blanc); }
+.v29 .box-faq .accroche,
+.v29 .depliable.box-faq.ouverte .accroche,
+.v29 .depliable.box-faq:not(.ouverte):hover .accroche {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+  font-size: var(--t-s);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--blanc);
+}
+.v29 .box-faq .signe { font-size: 20px; color: var(--blanc); }
+.v29 .box-faq .detail-in { padding-top: 12px; }
+.v29 .box-faq .detail-in p { max-width: 44em; font-weight: 400; font-size: var(--t-body); line-height: 1.55; color: var(--blanc); }
+.v29 .box-faq .detail-in b { font-weight: 600; }
+
+/* ------------------------------------------------------------
+   6. CONTACT — noir, fort mais pas monumental, moins d'un écran
+   ------------------------------------------------------------ */
+.v29 .contact {
+  display: block;
+  place-items: normal;
+  min-height: 0;
+  margin: 0;
+  padding: clamp(80px, 9vw, 128px) var(--marge) 120px;
+  border-radius: 0;
+  background: var(--encre);
+}
+.v29 .contact .centre { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 28px; }
+.v29 .contact .titre { max-width: 11em; font-size: var(--t-xl); line-height: 0.95; letter-spacing: -0.04em; }
+.v29 .contact p { font-size: var(--t-body-l); }
+.v29 .contact .btn { border-radius: 12px; background: var(--signature); color: var(--blanc); }
+.v29 .contact .btn:hover { background: var(--blanc); color: var(--encre); }
+.v29 .contact .copier:hover { background: var(--signature); }
+.v29 .contact footer .ui, .v29 .contact footer p { font-size: 11px; }
+
+/* ------------------------------------------------------------
+   MOBILE
+   ------------------------------------------------------------ */
+@media (max-width: 899px) {
+  .v29 .hero-centre { min-height: 0; padding: 104px 0 64px; }
+  .v29 .sf-grille { grid-template-columns: 1fr; gap: 12px; }
+  .v29 .sf-box { min-height: 0; gap: 20px; }
+  .v29 .sf-box:first-child .sf-titre { font-size: var(--t-m); }
+  .v29 #projets .bento { grid-template-columns: 1fr; gap: 12px; }
+  .v29 #projets .depliable.ouverte .box-tete { padding: 20px 20px 0; }
+  .v29 #projets .fermer-btn { top: 8px; right: 8px; }
+  .v29 .bio-photo, .v29 .bio-texte { grid-column: 1 / -1; }
+  .v29 .bio-photo img { max-height: 420px; }
+  .v29 .refs-grille { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 24px; }
+  .v29 .contact .titre { font-size: clamp(40px, 11vw, 56px); }
+}
+@media (min-width: 900px) and (max-width: 1099px) {
+  .v29 #projets .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
