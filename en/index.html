@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fractional Marketing Leadership in Switzerland | Hervé Peitrequin</title>
+<meta name="description" content="Experienced marketing leadership, embedded in your team a few days a month, without creating a position. For SMEs operating in French- and German-speaking Switzerland.">
+<meta property="og:title" content="Fractional Marketing Leadership in Switzerland | Hervé Peitrequin">
+<meta property="og:description" content="Experienced marketing leadership, embedded in your team a few days a month, without creating a position. For SMEs operating in French- and German-speaking Switzerland.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://marketing-studio-v20.vercel.app/og-v19e.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="Hervé Peitrequin">
+<meta property="og:locale" content="en">
+<link rel="alternate" hreflang="fr" href="https://hervepeitrequin.ch/">
+<link rel="alternate" hreflang="de" href="https://hervepeitrequin.ch/de/">
+<link rel="alternate" hreflang="en" href="https://hervepeitrequin.ch/en/">
+<link rel="alternate" hreflang="x-default" href="https://hervepeitrequin.ch/">
+<link rel="icon" href="../favicon.ico?v=29" sizes="any">
+<link rel="icon" type="image/svg+xml" href="../favicon-h.svg?v=29">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-h-32.png?v=29">
+<link rel="apple-touch-icon" href="../apple-touch-icon-h.png?v=29">
+<link rel="manifest" href="../site.webmanifest">
+<meta name="theme-color" content="#EFEFEF">
+<script>
+/* langue auto : à l'arrivée sur « / », on suit la langue du navigateur
+   (fr → reste, de → /de/, sinon → /en/). Un choix manuel dans le menu
+   est mémorisé et prime ; la navigation interne ne redirige jamais. */
+(function () {
+  var CLE = 'langue';
+  function lire() { try { return localStorage.getItem(CLE); } catch (e) { return null; } }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a.lang');
+    if (a) { try { localStorage.setItem(CLE, a.getAttribute('hreflang')); } catch (err) {} }
+  });
+  return; /* pas de redirection hors de « / » */
+  if (/bot|crawl|spider|slurp|preview|facebookexternalhit|whatsapp/i.test(navigator.userAgent)) return;
+  try { if (document.referrer && new URL(document.referrer).origin === location.origin) return; } catch (e) {}
+  var cible = lire();
+  if (!cible) {
+    var langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ''];
+    cible = 'en';
+    for (var i = 0; i < langs.length; i++) {
+      var l = String(langs[i]).toLowerCase().slice(0, 2);
+      if (l === 'fr' || l === 'de' || l === 'en') { cible = l; break; }
+    }
+  }
+  if (cible === 'de') location.replace('/de/' + location.search + location.hash);
+  else if (cible === 'en') location.replace('/en/' + location.search + location.hash);
+})();
+</script>
+<link rel="stylesheet" href="../1a.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Hervé Peitrequin",
+  "jobTitle": "Fractional Marketing Director",
+  "address": { "@type": "PostalAddress", "addressLocality": "Lausanne", "addressCountry": "CH" }
+}
+</script>
+</head>
+<body class="v1a">
+
+
+<!-- le menu-terminal : un petit objet d'interface, centré, collant -->
+<nav class="term ui" aria-label="Main navigation">
+  <a class="profil" href="#" aria-label="Hervé Peitrequin — back to top">
+    <img src="../images/portrait-rond.webp" alt="" width="36" height="36">
+    <span class="profil-nom">Hervé Peitrequin</span>
+  </a>
+  <span class="sep" aria-hidden="true"></span>
+  <a href="#projets" data-cible="projets">Projects</a>
+  <a href="#a-propos" data-cible="a-propos">About</a>
+  <a href="#contact" data-cible="contact">Contact</a>
+  <span class="sep" aria-hidden="true"></span>
+  <a class="lang" href="../" hreflang="fr" lang="fr">FR</a>
+  <a class="lang" href="../de/" hreflang="de" lang="de">DE</a>
+  <a class="lang langue-active" href="../en/" hreflang="en" lang="en" aria-current="page">EN</a>
+</nav>
+
+<main>
+
+  <!-- hero -->
+  <header class="hero">
+    <div class="hero-centre">
+      <h1 class="display"><span class="ligne">Fractional marketing</span> <span class="ligne gris">leadership.</span></h1>
+      <p>Experienced marketing leadership for your SME, embedded in your team for a few hours to a few days a month, or for a project.</p>
+      <div class="hero-cta">
+        <a class="btn" href="#contact">Let's talk about your goals</a>
+      </div>
+    </div>
+    <img class="hero-dessin" src="../images/portrait-dessin.webp" srcset="../images/portrait-dessin-1x.webp 880w, ../images/portrait-dessin.webp 1760w" sizes="(min-aspect-ratio: 1/1) 46vw, 80vw" width="1760" height="1868" alt="Drawn portrait of Hervé Peitrequin">
+    <div class="hero-logos" role="list" aria-label="References">
+      <img role="listitem" src="../images/logos/swisscom.svg" alt="Swisscom">
+      <img role="listitem" src="../images/logos/fischer.svg" alt="Fischer Connectors">
+      <img role="listitem" src="../images/logos/loreal.svg" alt="L'Oréal">
+      <img role="listitem" src="../images/logos/coople.svg" alt="Coople">
+      <img role="listitem" src="../images/logos/adecco.svg" alt="Adecco">
+      <img role="listitem" src="../images/logos/bulgari.svg" alt="Bulgari">
+      <img role="listitem" src="../images/logos/isl.png" alt="International School of Lausanne" class="lg-haut">
+      <img role="listitem" src="../images/logos/oxfam.svg" alt="Oxfam" class="lg-haut">
+      <img role="listitem" src="../images/logos/vaud.svg" alt="Canton of Vaud" class="lg-vaud">
+    </div>
+  </header>
+
+  <!-- le marketing accéléré : une carte qui se déplie -->
+  <section class="ia" id="marketing-accelere" aria-label="Accelerated marketing">
+    <div class="ia-carte rv">
+      <button class="ia-tete" type="button" aria-expanded="false" aria-controls="ia-details">
+        <span class="ia-texte">Artificial intelligence is transforming marketing. <span class="gris">I integrate AI tools and agents to grow your brand and multiply your teams’ performance.</span></span>
+        <span class="ia-fleche" aria-hidden="true">→</span>
+      </button>
+      <div class="ia-details" id="ia-details">
+        <div class="ia-in">
+          <h2 class="ia-titre">What I offer</h2>
+          <ul class="ia-points">
+          <li><h3 class="ia-pt">Spotting the potential</h3><p>Reviewing your marketing tasks, tools and data to see where AI realistically saves time.</p></li>
+          <li><h3 class="ia-pt">Workshop with your team</h3><p>Choosing two or three use cases together, setting priorities and defining the first steps.</p></li>
+          <li><h3 class="ia-pt">First prototype</h3><p>A first workflow, tested on your real cases, quickly shows whether the idea holds.</p></li>
+          <li><h3 class="ia-pt">Agentic workflows</h3><p>Automated reporting, lead follow-up, content adapted into several languages. Each workflow has a clear task and a person who reviews it.</p></li>
+          <li><h3 class="ia-pt">Integration with your tools</h3><p>Workflows connect to the tools your team already uses: CRM, website, email, campaign tools.</p></li>
+          <li><h3 class="ia-pt">Training and follow-up</h3><p>Your team learns to use, check and adjust these tools. Data protection (Swiss FADP) and usage rules are set from day one.</p></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- après les deux slides : défilement normal -->
+  <div class="suite">
+
+  <!-- projets : cinq cas dépliables -->
+  <section id="projets" data-zone="projets" aria-label="Projects">
+    <h2 class="intro rv">A selection of projects <span class="gris">delivered through fractional engagements or in-house marketing leadership roles.</span></h2>
+    <div class="bento">
+
+    <article class="box depliable b-7 rv" id="wingo">
+      <button class="fermer-btn" aria-controls="d-wingo">Close <span class="croix">×</span></button>
+      <button class="box-tete" aria-expanded="false" aria-controls="d-wingo">
+        <span class="ui">Swisscom</span>
+        <span class="apercu"><img src="../images/projects/wingo.webp" alt="Wingo campaign poster “Jetzt bekommst du, was du willst” in a tattoo parlour" width="1598" height="1128" loading="lazy"></span>
+        <p class="accroche">How Swisscom built a national digital brand in <strong>9 months</strong> and cut churn by <strong>12%</strong>.</p>
+        <span class="plus fleche" aria-hidden="true">↓</span>
+      </button>
+      <div class="box-detail" id="d-wingo" aria-hidden="true">
+        <div>
+          <div class="detail-in">
+            <img src="../images/projects/wingo.webp" alt="Wingo campaign poster “Jetzt bekommst du, was du willst” in a tattoo parlour" width="1598" height="1128" loading="lazy">
+            <p class="mission">Create and launch a national digital brand.</p>
+            <div class="detail-blocs-3">
+              <div>
+                <h3 class="ui">Challenge</h3>
+                <p>Low-cost operators were putting pressure on Swisscom, with a growing risk of losing its most price-sensitive customers. To respond without weakening the main brand, the group needed a distinct offer for the whole Swiss market — fast.</p>
+              </div>
+              <div>
+                <h3 class="ui">Contribution</h3>
+                <p>Inside Swisscom: created and launched Wingo in a matter of months — positioning, brand development, a national campaign across the three language regions, agency management and the build-up of a six-person digital team. A retention strategy built on personas and customer journeys then cut churn by 12%.</p>
+              </div>
+              <div>
+                <h3 class="ui">Results</h3>
+                <ul class="chiffres">
+              <li>Launched a national brand in 9 months</li>
+              <li>Reached 25% awareness in the core target within 6 months</li>
+              <li>Acquired tens of thousands of customers in the first year</li>
+              <li>Cut churn by 12% through the loyalty strategy</li>
+                </ul>
+              </div>
+            </div>
+            <section class="campagne" aria-label="The launch campaign">
+              <h3 class="ui">The launch campaign</h3>
+              <p class="campagne-intro">Developed with the agency Rod, the campaign was designed as one integrated whole across advertising, digital, social media and PR, all built on a single promise: “What you see is what you get”.</p>
+              <div class="campagne-phases">
+                <figure>
+                  <img src="../images/projects/wingo-teasing.webp" alt="Teaser poster “Schluss damit.” marked Coming soon, in a railway station" width="620" height="349" loading="lazy">
+                  <figcaption><span class="ui">Phase 1 · Pre-launch teaser</span><p>For one week, an unsigned campaign proclaimed in bold letters “Schluss damit.” (“Enough.”): the online date who looks less fresh than on the profile, the dress that looked better on the model. Several media picked up this gap between promise and reality, which we have all grown used to, before anyone knew who was behind it.</p></figcaption>
+                </figure>
+                <figure>
+                  <img src="../images/projects/wingo-lancement.webp" alt="Wingo launch poster “Schluss damit.”: a real burger next to its packaging photo, fibre internet for 75 francs" width="620" height="295" loading="lazy">
+                  <figcaption><span class="ui">Phase 2 · Launch</span><p>On 1 April 2015 the brand revealed itself: Wingo, “What you see is what you get”. No small print, no contract term, plenty of speed and a price with no hidden costs. Posters, print ads, a TV spot, digital and social media all followed the same mechanic: the promise kept, exactly what you see.</p></figcaption>
+                </figure>
+              </div>
+              <figure class="video">
+                <div class="video-cadre"><iframe src="https://www.youtube-nocookie.com/embed/JeYMP54jAwg?rel=0" title="Wingo — Wingo hält, was Wingo verspricht" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+                <figcaption class="ui">The launch spot</figcaption>
+              </figure>
+            </section>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="box depliable b-5 rv" id="fischer">
+      <button class="fermer-btn" aria-controls="d-fischer">Close <span class="croix">×</span></button>
+      <button class="box-tete" aria-expanded="false" aria-controls="d-fischer">
+        <span class="ui">Fischer Connectors</span>
+        <span class="apercu"><img src="../images/projects/fischer-connectors.webp" alt="Fischer Connectors stand at the Electronica trade fair" width="1600" height="1120" loading="lazy"></span>
+        <p class="accroche">How a Swiss industrial SME turned its website into a sales channel: <strong>1 in 4</strong> opportunities now come from it.</p>
+        <span class="plus fleche" aria-hidden="true">↓</span>
+      </button>
+      <div class="box-detail" id="d-fischer" aria-hidden="true">
+        <div>
+          <div class="detail-in">
+            <img src="../images/projects/fischer-connectors.webp" alt="Fischer Connectors stand at the Electronica trade fair" width="1600" height="1120" loading="lazy">
+            <p class="mission">Turn digital into a sales channel.</p>
+            <div class="detail-blocs-3">
+              <div>
+                <h3 class="ui">Challenge</h3>
+                <p>The Swiss industrial SME had internationally recognised products, but its commercial growth still relied largely on traditional channels. Engineers and buyers were searching for their solutions online — and the company couldn't meet them there or convert them into opportunities.</p>
+              </div>
+              <div>
+                <h3 class="ui">Contribution</h3>
+                <p>Inside Fischer Connectors: customer interviews, personas, a sharpened positioning and a complete redesign of the digital experience, including a product selector to ease technical choices. Digital became a permanent source of qualified leads for the sales teams.</p>
+              </div>
+              <div>
+                <h3 class="ui">Results</h3>
+                <ul class="chiffres">
+              <li>Generated 300 qualified enquiries a year for the sales teams</li>
+              <li>Made the website the source of one sales opportunity in four</li>
+              <li>Reached 40% adoption of the product selector</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="box depliable b-5 rv" id="bristol">
+      <button class="fermer-btn" aria-controls="d-bristol">Close <span class="croix">×</span></button>
+      <button class="box-tete" aria-expanded="false" aria-controls="d-bristol">
+        <span class="ui">Hotel Le Bristol</span>
+        <span class="apercu"><img src="../images/projects/hotel-bristol.webp" alt="Thermal baths of Hotel Le Bristol in Leukerbad facing the Gemmi cliffs" width="1280" height="853" loading="lazy"></span>
+        <p class="accroche">How an independent hotel grew direct bookings from <strong>30 to 45%</strong> and reduced its dependence on booking platforms.</p>
+        <span class="plus fleche" aria-hidden="true">↓</span>
+      </button>
+      <div class="box-detail" id="d-bristol" aria-hidden="true">
+        <div>
+          <div class="detail-in">
+            <img src="../images/projects/hotel-bristol.webp" alt="Thermal baths of Hotel Le Bristol in Leukerbad facing the Gemmi cliffs" width="1280" height="853" loading="lazy">
+            <p class="mission">Grow direct bookings.</p>
+            <div class="detail-blocs-3">
+              <div>
+                <h3 class="ui">Challenge</h3>
+                <p>A growing share of bookings was being captured by the big platforms, eroding margins and deepening the hotel's dependence on external intermediaries. It needed to take back the guest relationship and grow the share of direct bookings.</p>
+              </div>
+              <div>
+                <h3 class="ui">Contribution</h3>
+                <p>Redesigned the booking journey around guests' expectations, improved the hotel's visibility and simplified access to the offer. The new setup strengthened the direct channel and lifted website traffic by 15% after launch.</p>
+              </div>
+              <div>
+                <h3 class="ui">Results</h3>
+                <ul class="chiffres">
+              <li>Grew direct bookings from 30% to 45% in one year</li>
+              <li>Saved tens of thousands of francs in commissions every year</li>
+              <li>Lifted website traffic by 15% from launch</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="box depliable b-7 rv" id="isl">
+      <button class="fermer-btn" aria-controls="d-isl">Close <span class="croix">×</span></button>
+      <button class="box-tete" aria-expanded="false" aria-controls="d-isl">
+        <span class="ui">International School of Lausanne</span>
+        <span class="apercu apercu-jaune"><img src="../images/projects/isl-logo-jaune-1600.jpg" alt="International School of Lausanne logo, black on yellow, with its sun" width="1600" height="1600" loading="lazy"></span>
+        <p class="accroche">How an international school grew online enrolments by <strong>10%</strong> and lifted its NPS from <strong>45 to 65</strong>.</p>
+        <span class="plus fleche" aria-hidden="true">↓</span>
+      </button>
+      <div class="box-detail" id="d-isl" aria-hidden="true">
+        <div>
+          <div class="detail-in">
+            <img class="detail-jaune" src="../images/projects/isl-logo-jaune-1600.jpg" alt="International School of Lausanne logo, black on yellow, with its sun" width="1600" height="1600" loading="lazy">
+            <p class="mission">Strengthen the school's appeal to local families.</p>
+            <div class="detail-blocs-3">
+              <div>
+                <h3 class="ui">Challenge</h3>
+                <p>Despite an excellent reputation among international families, the school struggled to attract more pupils from the local community. Its image felt institutional and dated — while the experience inside was modern, open and carried by a highly engaged community.</p>
+              </div>
+              <div>
+                <h3 class="ui">Contribution</h3>
+                <p>Inside the school: a repositioning built with teachers, pupils and families. The work clarified what made the school different, then translated it into a new identity, new messages and a more coherent digital experience — helping the school attract new families.</p>
+              </div>
+              <div>
+                <h3 class="ui">Results</h3>
+                <ul class="chiffres">
+              <li>Grew online enrolments by 10%</li>
+              <li>Lifted the NPS from 45 to 65</li>
+              <li>Increased admission enquiries by 30%</li>
+              <li>Grew local families from 15% to 25% of new enrolments</li>
+                </ul>
+              </div>
+            </div>
+            <section class="campagne identite" aria-label="The new identity">
+              <h3 class="ui">The new identity</h3>
+              <p class="campagne-intro">A sun, a typeface and a pattern, used wherever families meet the school: on campus, on merchandise, online.</p>
+              <div class="identite-grille">
+                <figure>
+                  <img src="../images/projects/isl-typographie.jpg" alt="Alphabet of the ISL Semi Serif typeface, white and green on black, with a set of arrows" width="800" height="800" loading="lazy">
+                  <figcaption><span class="ui">Identity</span><p>The ISL Semi Serif typeface and its arrows</p></figcaption>
+                </figure>
+                <figure>
+                  <img src="../images/projects/isl-soleil.jpg" alt="Stainless steel plate engraved with the ISL sun, in a campus flowerbed" width="800" height="800" loading="lazy">
+                  <figcaption><span class="ui">Identity</span><p>The sun, engraved in steel</p></figcaption>
+                </figure>
+                <figure>
+                  <img src="../images/projects/isl-motif.jpg" alt="Canvas tote bag printed with the green ISL pattern and suns" width="800" height="800" loading="lazy">
+                  <figcaption><span class="ui">Identity</span><p>The ISL pattern and its suns on school merchandise</p></figcaption>
+                </figure>
+                <figure>
+                  <img src="../images/projects/isl-signaletique.jpg" alt="Grey wayfinding totem: Auditorium, Reception, Library, Bus Station, with arrows" width="800" height="800" loading="lazy">
+                  <figcaption><span class="ui">Campus</span><p>Campus wayfinding</p></figcaption>
+                </figure>
+                <figure>
+                  <img src="../images/projects/isl-ecran.jpg" alt="Information screen listing school events in black, green, orange and blue" width="800" height="800" loading="lazy">
+                  <figcaption><span class="ui">Campus</span><p>Information screens, one colour per event</p></figcaption>
+                </figure>
+                <figure>
+                  <img src="../images/projects/isl-mobile.jpg" alt="ISL mobile site on a phone: “People of ISL” and portraits of pupils" width="800" height="800" loading="lazy">
+                  <figcaption><span class="ui">Digital</span><p>The mobile site, “People of ISL”</p></figcaption>
+                </figure>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="box depliable b-7 rv" id="spatz">
+      <button class="fermer-btn" aria-controls="d-spatz">Close <span class="croix">×</span></button>
+      <button class="box-tete" aria-expanded="false" aria-controls="d-spatz">
+        <span class="ui">Spatz</span>
+        <span class="apercu apercu-contenue"><img src="../images/projects/spatz.webp" alt="Spatz app on two phones: local edition and Versoix listings feed" width="640" height="640" loading="lazy"></span>
+        <p class="accroche">How a new media outlet grew its subscribers <strong>tenfold</strong> in under a year and cut acquisition costs by <strong>75%</strong>.</p>
+        <span class="plus fleche" aria-hidden="true">↓</span>
+      </button>
+      <div class="box-detail" id="d-spatz" aria-hidden="true">
+        <div>
+          <div class="detail-in">
+            <img src="../images/projects/spatz.webp" alt="Spatz app on two phones: local edition and Versoix listings feed" width="640" height="640" loading="lazy">
+            <p class="mission">Accelerate subscription growth.</p>
+            <div class="detail-blocs-3">
+              <div>
+                <h3 class="ui">Challenge</h3>
+                <p>The young media outlet had to prove its business model fast: recruit enough subscribers while keeping acquisition costs in line with the revenue they generate.</p>
+              </div>
+              <div>
+                <h3 class="ui">Contribution</h3>
+                <p>As growth manager: a strategy built on testing, rigorous measurement and continuously shifting budgets to the best-performing channels. In under a year, subscribers grew tenfold and acquisition costs fell to a quarter.</p>
+              </div>
+              <div>
+                <h3 class="ui">Results</h3>
+                <ul class="chiffres">
+              <li>Grew subscribers tenfold in under a year</li>
+              <li>Built the base from 1,500 to 15,000 subscribers</li>
+              <li>Cut acquisition costs from 8 to 2 francs</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+      <a class="box box-grad box-cta b-5 rv" href="#contact">
+        <p class="cta-titre">Got a project in mind?</p>
+        <span class="btn">Let's talk&nbsp;<span class="arr">→</span></span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- à propos : une bento dépliable -->
+  <section class="apropos" id="a-propos" data-zone="a-propos" aria-label="About">
+    <div class="bio-grille">
+      <div class="bio-texte rv">
+        <div class="bio-tete">
+          <img class="bio-photo" src="../images/portrait-serre.webp" alt="Portrait of Hervé Peitrequin" width="667" height="834" loading="lazy">
+          <h2 class="titre">Hervé Peitrequin</h2>
+        </div>
+        <div class="bio-corps" id="bio-corps">
+          <p>Marketing has been my profession for more than 25 years, in international groups, SMEs, start-ups and scale-ups, in Switzerland and abroad. I have recruited and led teams, launched brands, built customer acquisition and developed markets.</p>
+          <p>Companies call on me when their marketing needs perspective, someone at the helm or results: to lead a project the team has no time to carry, or to bring AI and agents into its daily work.</p>
+        </div>
+        <button class="bio-plus fleche" type="button" aria-expanded="false" aria-controls="bio-corps" aria-label="Read more">↓</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ : six bento dépliables -->
+  <section class="faq" data-zone="a-propos" aria-label="FAQ">
+    <h2 class="titre rv">FAQ</h2>
+    <div class="bento">
+      <article class="box depliable box-faq rv" id="faq-1">
+        <button class="box-tete" aria-expanded="false" aria-controls="d-faq-1">
+          <p class="accroche">Why outsource rather than hire?</p>
+          <span class="signe fleche" aria-hidden="true">↓</span>
+        </button>
+        <div class="box-detail" id="d-faq-1" aria-hidden="true">
+          <div>
+            <div class="detail-in">
+              <p>Recruiting a marketing director takes months and commits you for years — for a need that is often neither permanent nor full-time. A fractional engagement can start within days, brings senior experience from day one, and scales or stops as your needs change.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="box depliable box-faq rv" id="faq-2">
+        <button class="box-tete" aria-expanded="false" aria-controls="d-faq-2">
+          <p class="accroche">How is this different from an agency or a consultant?</p>
+          <span class="signe fleche" aria-hidden="true">↓</span>
+        </button>
+        <div class="box-detail" id="d-faq-2" aria-hidden="true">
+          <div>
+            <div class="detail-in">
+              <p>An agency executes campaigns; a consultant recommends, then leaves. I sit on your side of the table: I set the course, deliver with your teams and agencies, and answer for the results.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="box depliable box-faq rv" id="faq-3">
+        <button class="box-tete" aria-expanded="false" aria-controls="d-faq-3">
+          <p class="accroche">How does a collaboration work?</p>
+          <span class="signe fleche" aria-hidden="true">↓</span>
+        </button>
+        <div class="box-detail" id="d-faq-3" aria-hidden="true">
+          <div>
+            <div class="detail-in">
+              <p>A first 30-minute conversation about your goals. Then a clear proposal: mission, days per month, target result. Then I embed and we move forward — the engagement adjusts or stops whenever you decide.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="box depliable box-faq rv" id="faq-4">
+        <button class="box-tete" aria-expanded="false" aria-controls="d-faq-4">
+          <p class="accroche">Do I need a marketing team already?</p>
+          <span class="signe fleche" aria-hidden="true">↓</span>
+        </button>
+        <div class="box-detail" id="d-faq-4" aria-hidden="true">
+          <div>
+            <div class="detail-in">
+              <p>No. If you have one, I lead it and help it grow. If you don't, I work with your agencies and partners — or build the lean setup you need.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="box depliable box-faq rv" id="faq-5">
+        <button class="box-tete" aria-expanded="false" aria-controls="d-faq-5">
+          <p class="accroche">How can we work together?</p>
+          <span class="signe fleche" aria-hidden="true">↓</span>
+        </button>
+        <div class="box-detail" id="d-faq-5" aria-hidden="true">
+          <div>
+            <div class="detail-in">
+              <p>Three formats that can be combined:<br>
+              <b>Ongoing</b>: your marketing leadership, a few days a month.<br>
+              <b>As a project</b>: a launch or a repositioning, with a start, an end and a goal.<br>
+              <b>As a transfer</b>: your team builds skills, with the right tools.<br>
+              The first 30-minute conversation is where we choose.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="box depliable box-faq rv" id="faq-6">
+        <button class="box-tete" aria-expanded="false" aria-controls="d-faq-6">
+          <p class="accroche">How much does it cost?</p>
+          <span class="signe fleche" aria-hidden="true">↓</span>
+        </button>
+        <div class="box-detail" id="d-faq-6" aria-hidden="true">
+          <div>
+            <div class="detail-in">
+              <p>A tailored engagement: you choose the number of days, the duration and the scope, and adjust them as your needs change. The experience of a senior marketing lead for the price of a few days a month, with no full-time salary and no social charges. A costed proposal follows the first conversation.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- contact -->
+  <section class="contact" id="contact" data-zone="contact" aria-label="Contact">
+    <div class="centre">
+      <h2 class="titre rv">What result should your marketing deliver?</h2>
+      <p class="rv">30 minutes to talk about your goals. Nothing to prepare.</p>
+      <a class="btn rv" href="#" data-link="booking">Book a conversation&nbsp;<span class="arr">→</span></a>
+      <p class="voies rv">
+        <a class="lien" href="#" data-link="email" data-courriel>herve (at) hervepeitrequin.ch</a>
+        <button class="copier" data-copier="" data-courriel data-copie="Copied ✓">Copy</button>
+        <a class="lien" href="#" data-link="whatsapp">WhatsApp</a>
+        <a class="lien" href="#" data-link="linkedin">LinkedIn</a>
+      </p>
+    </div>
+    <footer>
+      <p class="ui">
+        <span>Hervé Peitrequin</span>
+        <span>1006 Lausanne, Switzerland</span>
+        <a href="../en/legal-notice.html">Legal notice</a>
+        <a href="../en/privacy.html">Privacy</a>
+        <span class="langues" role="group" aria-label="Language">
+          <a class="lang" href="../" hreflang="fr" lang="fr">FR</a>
+          <a class="lang" href="../de/" hreflang="de" lang="de">DE</a>
+          <a class="lang langue-active" href="../en/" hreflang="en" lang="en" aria-current="page">EN</a>
+        </span>
+      </p>
+    </footer>
+  </section>
+
+  </div>
+
+</main>
+
+
+<script src="../config.js"></script>
+<script>
+/* the English version adapts the pre-filled WhatsApp message */
+window.SITE.whatsapp = "https://wa.me/" + window.SITE.whatsappNumero + "?text=" + encodeURIComponent("Hello, I would like to discuss a marketing project for our organisation.");
+</script>
+<script src="../home.js"></script>
+<script>
+/* bio sur mobile : un extrait, la suite au toucher — toute la bento
+   ouvre et referme, pas seulement la flèche (un glisser n'est pas un toucher) */
+(function () {
+  var b = document.querySelector('.bio-plus'), t = document.querySelector('.bio-texte');
+  if (!b || !t) return;
+  var px = 0, py = 0;
+  t.addEventListener('pointerdown', function (e) { px = e.clientX; py = e.clientY; });
+  t.addEventListener('click', function (e) {
+    if (getComputedStyle(b).display === 'none') return; /* laptop : tout est déjà visible */
+    if (e.target.closest('a')) return;
+    if (e.detail && (Math.abs(e.clientX - px) > 8 || Math.abs(e.clientY - py) > 8)) return;
+    var ouvert = t.classList.toggle('bio-ouverte');
+    b.setAttribute('aria-expanded', ouvert ? 'true' : 'false');
+  });
+})();
+</script>
+
+</body>
+</html>

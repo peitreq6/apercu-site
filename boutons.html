@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr" data-btn="0">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Boutons — 6 directions</title>
+<link rel="icon" type="image/svg+xml" href="favicon-h.svg?v=29">
+<link rel="stylesheet" href="1a.css">
+<style>
+  .planche { max-width: 1240px; margin: 0 auto; padding: 96px var(--marge); }
+  .planche > h1 { font-size: var(--t-titre); font-weight: 500; letter-spacing: -0.04em; line-height: 1.06; margin-bottom: 16px; }
+  .planche > p { max-width: 40em; color: var(--texte); margin-bottom: 48px; }
+  .dirs { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: var(--gap); }
+  .dir { background: var(--carte); border-radius: var(--rayon); padding: 8px; display: flex; flex-direction: column; }
+  .scene { display: grid; place-items: center; min-height: 220px; padding: 32px 24px; border-radius: var(--rayon-int); background: var(--fond); }
+  .dir-in { padding: 20px 16px 16px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .dir h2 { font-size: var(--t-moyen); font-weight: 500; letter-spacing: -0.02em; line-height: 1.25; }
+  .dir h2 span { color: var(--gris); }
+  .dir p { color: var(--texte); }
+  .dir .src { font-size: var(--t-label); line-height: 1.5; color: var(--gris-fonce); }
+  .dir .voir { margin-top: auto; padding-top: 10px; align-self: flex-start; }
+</style>
+</head>
+<body class="v1a">
+<main class="planche">
+  <h1>Six directions <span class="gris">pour les boutons.</span></h1>
+  <p>Chaque bouton est réel : survolez-le. « Voir sur la page » ouvre l’accueil avec cette direction appliquée à tous les boutons (hero, carte projets, contact).</p>
+  <div class="dirs">
+
+    <article class="dir" data-btn="1">
+      <div class="scene"><a class="btn" href="?btn=1">Parler de vos objectifs</a></div>
+      <div class="dir-in">
+        <h2>1 · Tuile <span>— le bouton est une mini-bento</span></h2>
+        <p>Deux tuiles côte à côte, du rayon des cartes : le libellé sur blanc, la flèche sur une tuile Wasabi qui passe au noir au survol.</p>
+        <p class="src">Bento = motif par défaut en 2026 : <a href="https://theplusaddons.com/blog/web-design-trends-2026/">The Plus Addons</a>, <a href="https://fuselabcreative.com/mobile-app-design-trends/">Fuselab</a> · Wasabi #E9F056 : <a href="https://www.jckonline.com/editorial-article/pinterest-2026-color-palette">Pinterest Predicts 2026 (JCK)</a></p>
+        <a class="lien voir" href="?btn=1">Voir sur la page →</a>
+      </div>
+    </article>
+
+    <article class="dir" data-btn="2">
+      <div class="scene"><a class="btn" href="?btn=2">Parler de vos objectifs</a></div>
+      <div class="dir-in">
+        <h2>2 · Néo-brutal <span>— un seul accent qui cogne</span></h2>
+        <p>Aplat Wasabi, filet noir 2 px, ombre dure décalée ; au survol le bouton s’enfonce. Le reste de la page reste sobre.</p>
+        <p class="src">Néo-brutalisme en recul comme style de page, en hausse comme accent sur un CTA : <a href="https://theplusaddons.com/blog/web-design-trends-2026/">The Plus Addons</a>, <a href="https://trends.daisyui.com/ui-design-trends-2026/">daisyUI</a> · « tactile brutalism » : <a href="https://fireart.studio/blog/the-best-web-design-trends/">Fireart</a></p>
+        <a class="lien voir" href="?btn=2">Voir sur la page →</a>
+      </div>
+    </article>
+
+    <article class="dir" data-btn="3">
+      <div class="scene"><a class="btn" href="?btn=3">Parler de vos objectifs</a></div>
+      <div class="dir-in">
+        <h2>3 · Verre liquide <span>— la matière Apple</span></h2>
+        <p>Pilule translucide floutée, reflet en haut, teinte Wasabi dans le verre ; au survol elle se soulève.</p>
+        <p class="src">Liquid Glass, langage d’Apple depuis la WWDC 2025, d’abord sur les boutons : <a href="https://appleinsider.com/articles/25/06/09/apples-new-and-sweeping-user-interface-design-is-called-liquid-glass">AppleInsider</a>, <a href="https://www.engadget.com/mobile/smartphones/apples-new-liquid-glass-design-is-its-biggest-visual-update-in-years-172158766.html">Engadget</a> · réglage de transparence en 2026 : <a href="https://www.neowin.net/news/apple-finally-brings-the-slider-for-liquid-glass-and-many-other-changes/">Neowin</a></p>
+        <a class="lien voir" href="?btn=3">Voir sur la page →</a>
+      </div>
+    </article>
+
+    <article class="dir" data-btn="4">
+      <div class="scene"><a class="btn" href="?btn=4">Parler de vos objectifs</a></div>
+      <div class="dir-in">
+        <h2>4 · Pastille <span>— encre, et le Wasabi qui s’étend</span></h2>
+        <p>Pilule noire, pastille Wasabi à flèche au bout ; au survol la pastille remplit tout le bouton et la flèche pivote.</p>
+        <p class="src">Pastille ronde animée au survol, motif courant des sites primés : <a href="https://www.framer.com/marketplace/components/roll-reveal-button">Framer, Roll Reveal Button</a>, <a href="https://www.awwwards.com/inspiration/button-hover-more-nutrition">Awwwards</a></p>
+        <a class="lien voir" href="?btn=4">Voir sur la page →</a>
+      </div>
+    </article>
+
+    <article class="dir" data-btn="5">
+      <div class="scene"><a class="btn" href="?btn=5">Parler de vos objectifs</a></div>
+      <div class="dir-in">
+        <h2>5 · Bloc XXL <span>— le bouton devient une carte</span></h2>
+        <p>Une bento entière en Wasabi, grand texte, tuile noire à flèche au bout. La plus radicale, la plus visible.</p>
+        <p class="src">« Exaggerated minimalism », boutons surdimensionnés : <a href="https://fuselabcreative.com/mobile-app-design-trends/">Fuselab</a> · un seul accent saturé réservé aux CTA (60-30-10) : <a href="https://www.techwyse.com/blog/website-design/web-design-trends-dopamine-design-2026">TechWyse</a></p>
+        <a class="lien voir" href="?btn=5">Voir sur la page →</a>
+      </div>
+    </article>
+
+    <article class="dir" data-btn="6">
+      <div class="scene"><a class="btn" href="?btn=6">Parler de vos objectifs</a></div>
+      <div class="dir-in">
+        <h2>6 · Tactile <span>— le bouton qu’on presse (choisi)</span></h2>
+        <p>Rectangle doux à filet encre, grain papier, reflet et ombre courte. Bleu électrique au repos, corail au survol et pour tout ce qui est sélectionné.</p>
+        <p class="src">Retour de la profondeur et de la texture dans l’interface : <a href="https://trends.daisyui.com/ui-design-trends-2026/">daisyUI</a>, <a href="https://fireart.studio/blog/the-best-web-design-trends/">Fireart, « tactile brutalism »</a> · Persimmon #FF5C34 : <a href="https://www.jckonline.com/editorial-article/pinterest-2026-color-palette">Pinterest Predicts 2026</a></p>
+        <a class="lien voir" href="?btn=6">Voir sur la page →</a>
+      </div>
+    </article>
+
+  </div>
+</main>
+</body>
+</html>

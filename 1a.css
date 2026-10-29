@@ -1,0 +1,1179 @@
+/* ============================================================
+   1A — feuille unique, sobre, inspirée d'intmagic.com
+   (remplace home.css + v36.css sur FR, DE et EN)
+
+   · fond gris clair uni, sans trame ; les bento sont BLANCHES,
+     posées dessus, sans filet ni surlignage
+   · une seule police (Inter), des tailles peu nombreuses ; les
+     grands titres en deux tons — encre puis gris —, le petit texte
+     en encre
+   · la couleur seulement par touches, avec un rôle fixe :
+     voir le CODE COULEUR du bloc 1A·b en fin de fichier
+   · beaucoup d'air : sections larges, images mises en avant
+   ============================================================ */
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url('fonts/inter-400-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url('fonts/inter-400-latin-ext.woff2') format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 500; font-display: swap; src: url('fonts/inter-500-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 500; font-display: swap; src: url('fonts/inter-500-latin-ext.woff2') format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url('fonts/inter-600-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url('fonts/inter-600-latin-ext.woff2') format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+:root {
+  --fond: #EFEFEF;
+  --carte: #FFFFFF;
+  --creux: #F5F5F5;          /* fond d'image contenue, pastilles neutres */
+  --encre: #121212;
+  --texte: #3C3C3C;          /* texte courant dans les cartes */
+  --gris: #8E8E8E;           /* la seconde voix des grands titres */
+  --gris-fonce: #6B6B6B;     /* accroches (assez contrasté pour du 20px) */
+
+  /* les trois couleurs exactes de l'illustration de maas.engineering
+     (fichier source sRGB, sans profil) */
+  --jaune: #FFB21A;
+  --bleu: #1E5DFF;            /* repli sRGB du bleu maas */
+  --bleu-survol: #124EFB;
+  --rouge: #FF531B;
+
+  --police: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+
+  /* 5 tailles */
+  --t-display: clamp(44px, 6.6vw, 96px);
+  --t-titre: clamp(30px, 3.6vw, 52px);
+  --t-moyen: clamp(19px, 1.6vw, 23px);
+  --t-texte: 16px;
+  --t-label: 13px;
+
+  --marge: clamp(16px, 4vw, 48px);
+  --large: 1240px;
+  --section: clamp(96px, 12vw, 176px);
+  --rayon: 20px;
+  --rayon-int: 12px;
+  --gap: 14px;
+}@supports (color: oklch(0 0 0)) {
+  /* le bleu exact des boutons et liens de maas.engineering
+     (--app-color-accent-bg-solid / -hover) */
+  :root { --bleu: oklch(0.56 0.26 264); --bleu-survol: oklch(0.52 0.26 264); }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--fond);
+  color: var(--encre);
+  font-family: var(--police);
+  font-size: var(--t-texte);
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+img { display: block; max-width: 100%; height: auto; }
+h1, h2, h3, p, ul { margin: 0; }
+ul { padding: 0; list-style: none; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+::selection { background: var(--bleu); color: #fff; }
+:focus-visible { outline: 2px solid var(--bleu); outline-offset: 3px; }
+
+.gris { color: var(--gris); }
+.insecable { white-space: nowrap; }
+
+/* les registres */
+.display, .titre, .intro, .ia-texte, .mission {
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+.ui { font-size: var(--t-label); font-weight: 500; letter-spacing: 0; }
+
+/* apparition au défilement (inchangée) */
+.rv { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s cubic-bezier(.2,.7,.2,1); }
+.rv.vu { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .rv { opacity: 1; transform: none; transition: none; }
+}
+
+/* ------------------------------------------------------------
+   MENU — la même pilule, trois entrées
+   ------------------------------------------------------------ */
+.term {
+  position: fixed;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  display: flex;
+  gap: 2px;
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.86);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border-radius: 999px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+.term a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--encre);
+  white-space: nowrap;
+  transition: background-color 0.2s ease;
+}
+.term a::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  margin-left: -14px;
+  border-radius: 50%;
+  background: var(--rouge);
+  opacity: 0;
+  transition: opacity 0.2s ease, margin 0.2s ease;
+}
+.term a:hover { background: var(--creux); }
+.term .sep { align-self: center; width: 1px; height: 16px; margin: 0 6px; background: rgba(0, 0, 0, 0.12); }
+.term a.lang { width: 36px; padding: 9px 0; justify-content: center; }
+.term a.lang::before { content: none; }
+.term a.lang.langue-active, .term a.lang.langue-active:hover { background: var(--jaune); }
+.term a.actif::before { opacity: 1; margin-left: 0; }
+@media (max-width: 479px) {
+  .term { top: 10px; gap: 0; max-width: calc(100vw - 16px); }
+  .term a { padding: 9px 10px; font-size: 13px; }
+  .term a.lang { width: 32px; }
+  .term .sep { margin: 0 3px; }
+}
+
+/* ------------------------------------------------------------
+   BOUTONS ET LIENS
+   ------------------------------------------------------------ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 24px;
+  border-radius: 999px;
+  background: var(--bleu);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+.btn:hover { background: var(--bleu-survol); }
+.lien {
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  text-decoration-color: rgba(18, 18, 18, 0.25);
+  transition: text-decoration-color 0.2s ease;
+}
+.lien:hover { text-decoration-color: var(--encre); }
+.arr { display: inline-block; }
+
+/* ------------------------------------------------------------
+   SECTIONS — un axe central, beaucoup d'air
+   ------------------------------------------------------------ */
+main > section, .suite > section { padding: var(--section) var(--marge) 0; }
+main > section > *,
+.suite > section > *,
+.hero-centre { width: 100%; max-width: var(--large); margin-inline: auto; }
+
+/* l'en-tête de section : grand titre en deux tons, aligné à gauche */
+.intro, .faq > .titre {
+  max-width: var(--large);
+  margin-bottom: clamp(40px, 5vw, 72px);
+  font-size: var(--t-titre);
+  line-height: 1.06;
+}
+#projets > .intro { padding-right: min(30%, 360px); }
+
+/* ------------------------------------------------------------
+   HERO — plein écran, le titre seul au centre
+   ------------------------------------------------------------ */
+.hero { padding: 0 var(--marge); }
+.hero-centre {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  padding: 96px 0 72px;
+  text-align: center;
+}
+.hero h1 {
+  font-size: var(--t-display);
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+}
+.hero h1 .ligne { display: block; }
+@media (min-width: 900px) { .hero h1 .ligne { white-space: nowrap; } }
+.hero p {
+  max-width: 34em;
+  font-size: 18px;
+  line-height: 1.55;
+  color: var(--texte);
+  text-wrap: pretty;
+}
+.hero-cta { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; justify-content: center; margin-top: 8px; }
+.hero-cta .lien { font-size: 15px; }
+
+/* ------------------------------------------------------------
+   BENTO — blanches sur le gris, sans filet, sans surlignage
+   ------------------------------------------------------------ */
+.bento { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--gap); }
+.box { position: relative; background: var(--carte); border-radius: var(--rayon); color: var(--encre); }
+.b-7 { grid-column: span 7; }
+.b-5 { grid-column: span 5; }
+.depliable { cursor: pointer; }
+.depliable.ouverte { grid-column: 1 / -1; cursor: default; }
+
+.box-tete {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.box-tete:focus-visible { outline: 2px solid var(--bleu); outline-offset: 3px; border-radius: var(--rayon); }
+
+/* la pastille flèche : neutre au repos, rouge au survol de la carte */
+.fleche {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--creux);
+  color: var(--encre);
+  font-size: 16px;
+  line-height: 1;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.3s ease;
+}
+
+/* ---- projets ---- */
+#projets .box { padding: 8px; }
+#projets .box-tete { display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto auto 1fr; column-gap: 16px; }
+#projets .apercu {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  overflow: hidden;
+  border-radius: var(--rayon-int);
+  background: var(--creux);
+  aspect-ratio: 16 / 10;
+}
+#projets .b-5 .apercu { aspect-ratio: 8 / 7; }   /* même hauteur que la b-7 voisine */
+#projets .apercu img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(.2,.7,.2,1); }
+#projets .apercu-contenue img { object-fit: contain; padding: 14%; }
+#projets .depliable:not(.ouverte):hover .apercu img { transform: scale(1.025); }
+#projets .box-tete > .ui { grid-column: 1; grid-row: 2; padding: 18px 10px 6px; color: var(--encre); }
+#projets .accroche {
+  grid-column: 1; grid-row: 3;
+  padding: 0 10px 12px;
+  max-width: 30em;
+  font-size: var(--t-moyen);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: var(--gris-fonce);
+  text-wrap: pretty;
+}
+#projets .accroche strong { font-weight: 500; color: var(--encre); }
+#projets .plus { grid-column: 2; grid-row: 2 / 4; align-self: end; margin: 0 4px 10px 0; }
+#projets .depliable:not(.ouverte):hover .plus { background: var(--rouge); color: #fff; }
+#projets .depliable.ouverte .apercu,
+#projets .depliable.ouverte .accroche,
+#projets .depliable.ouverte .plus { display: none; }
+#projets .depliable.ouverte .box-tete > .ui { padding-top: 14px; }
+
+/* fermer : une petite pilule en haut à droite de la carte ouverte */
+.fermer-btn {
+  all: unset;
+  box-sizing: border-box;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--creux);
+  font-size: var(--t-label);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.fermer-btn:hover { background: #E6E6E6; }
+.fermer-btn .croix { font-size: 1.3em; line-height: 1; }
+.depliable.ouverte .fermer-btn { display: inline-flex; }
+
+/* le détail : se déplie en hauteur (piloté en JS) */
+.box-detail { overflow: hidden; max-height: 0; transition: max-height 0.55s cubic-bezier(.2,.7,.2,1); }
+.detail-in { display: flex; flex-direction: column; gap: clamp(28px, 3.4vw, 48px); padding: 12px 10px clamp(20px, 3vw, 40px); }
+.detail-in > img { width: 100%; max-height: 72vh; object-fit: cover; border-radius: var(--rayon-int); }
+#isl .detail-in > img, #spatz .detail-in > img { object-fit: contain; max-height: 420px; padding: 6%; background: var(--creux); }
+.mission { font-size: var(--t-titre); line-height: 1.06; max-width: 18em; }
+.detail-blocs-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 3.4vw, 56px); }
+.detail-blocs-3 h3.ui { margin-bottom: 12px; color: var(--gris); }
+.detail-blocs-3 p, .chiffres li { color: var(--texte); }
+.chiffres li { position: relative; padding-left: 18px; }
+.chiffres li + li { margin-top: 8px; }
+.chiffres li::before { content: "–"; position: absolute; left: 0; color: var(--gris); }
+
+/* la carte d'appel en fin de projets */
+.box-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 24px;
+  padding: clamp(24px, 2.8vw, 40px);
+  text-decoration: none;
+  min-height: 260px;
+}
+#projets .box-cta { padding: clamp(24px, 2.8vw, 40px); }
+.cta-titre { font-size: var(--t-titre); font-weight: 600; line-height: 1.06; letter-spacing: -0.04em; }
+
+/* ------------------------------------------------------------
+   LE MARKETING ACCÉLÉRÉ — une carte blanche qui se déplie
+   ------------------------------------------------------------ */
+.ia { padding-top: 0; }
+.ia-carte { background: var(--carte); border-radius: var(--rayon); cursor: pointer; --pad: clamp(24px, 4vw, 56px); }
+.ia-tete {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  width: 100%;
+  padding: var(--pad);
+  background: none;
+  border: 0;
+  border-radius: var(--rayon);
+  text-align: left;
+  cursor: pointer;
+}
+.ia-texte { max-width: 24em; font-size: var(--t-titre); line-height: 1.1; text-wrap: pretty; }
+.ia-fleche { width: 44px; height: 44px; display: grid; place-items: center; flex: none; border-radius: 50%; background: var(--creux); font-size: 18px; transition: transform 0.3s ease, background-color 0.2s ease, color 0.2s ease; }
+.ia-carte:hover .ia-fleche { background: var(--rouge); color: #fff; }
+.ia-carte.ouverte .ia-fleche { transform: rotate(90deg); }
+.ia-details { display: grid; grid-template-rows: 0fr; opacity: 0; visibility: hidden; transition: grid-template-rows 0.3s ease-out, opacity 0.3s ease-out, visibility 0s linear 0.3s; }
+.ia-carte.ouverte .ia-details { grid-template-rows: 1fr; opacity: 1; visibility: visible; transition: grid-template-rows 0.3s ease-out, opacity 0.3s ease-out, visibility 0s; }
+.ia-in { min-height: 0; overflow: hidden; }
+.ia-titre { margin: 0 var(--pad) 24px; font-size: var(--t-label); font-weight: 500; color: var(--gris); }
+.ia-points { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px 40px; padding: 0 var(--pad) var(--pad); }
+.ia-points h3 { margin-bottom: 6px; font-size: var(--t-texte); font-weight: 600; }
+.ia-points p { color: var(--texte); }
+
+/* ------------------------------------------------------------
+   À PROPOS — bio | références
+   ------------------------------------------------------------ */
+.bio-grille { display: grid; grid-template-columns: 7fr 5fr; gap: var(--gap); }
+.bio-texte, .refs { background: var(--carte); border-radius: var(--rayon); padding: clamp(24px, 3vw, 40px); }
+.bio-texte { display: flex; flex-direction: column; gap: 28px; }
+.bio-texte > .ui, .refs > .ui { color: var(--gris); }
+.bio-tete { display: flex; align-items: flex-end; gap: 24px; }
+.bio-photo { width: clamp(120px, 14vw, 180px); aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--rayon-int); }
+.bio-tete .titre { font-size: var(--t-titre); line-height: 1.02; }
+.bio-corps { display: flex; flex-direction: column; gap: 14px; max-width: 36em; color: var(--texte); }
+.bio-plus { display: none; }
+.refs { display: flex; flex-direction: column; gap: 28px; }
+.refs-grille { flex: 1; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.refs-grille img {
+  width: 100%;
+  height: 84px;
+  padding: 24px 28px;
+  object-fit: contain;
+  background: var(--creux);
+  border-radius: var(--rayon-int);
+  filter: grayscale(1);
+  opacity: 0.85;
+}
+.refs-grille img.lg-haut { padding: 18px 28px; }
+
+/* ------------------------------------------------------------
+   FAQ — des cartes blanches empilées
+   ------------------------------------------------------------ */
+.faq .bento { grid-template-columns: 1fr; gap: 8px; }
+.box-faq { border-radius: 16px; }
+.box-faq .box-tete { flex-direction: row; align-items: center; justify-content: space-between; gap: 24px; padding: 20px 20px 20px 28px; }
+.box-faq .accroche { font-size: var(--t-moyen); font-weight: 500; line-height: 1.3; letter-spacing: -0.02em; }
+.box-faq:hover .signe { background: var(--rouge); color: #fff; }
+.box-faq.ouverte .signe { transform: rotate(180deg); background: var(--creux); color: var(--encre); }
+.box-faq .detail-in { padding: 0 28px 28px; }
+.box-faq .detail-in p { max-width: 46em; color: var(--texte); }
+
+/* ------------------------------------------------------------
+   CONTACT + PIED
+   ------------------------------------------------------------ */
+.contact { padding-bottom: var(--marge); }
+.contact .centre {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: clamp(56px, 8vw, 120px) var(--marge);
+  background: var(--carte);
+  border-radius: var(--rayon);
+  text-align: center;
+}
+.contact .titre { max-width: 16em; font-size: var(--t-titre); line-height: 1.06; }
+.contact .centre > p:not(.voies) { color: var(--texte); font-size: 18px; }
+.contact .btn { margin-top: 8px; }
+.voies { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px 24px; margin-top: 12px; font-size: 15px; }
+.copier {
+  all: unset;
+  cursor: pointer;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: var(--creux);
+  font-size: var(--t-label);
+  font-weight: 500;
+}
+.copier:hover { background: #E6E6E6; }
+footer { max-width: var(--large); margin: 0 auto; padding: 28px 8px 16px; }
+footer .ui { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; color: var(--gris-fonce); }
+footer a { text-decoration: none; }
+footer a:hover { color: var(--encre); }
+.langues { display: inline-flex; gap: 4px; margin-left: auto; }
+.langues .lang { display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; color: var(--encre); }
+.langues .lang:hover { background: var(--carte); }
+.langues .lang.langue-active { background: var(--jaune); color: var(--encre); }
+
+/* ------------------------------------------------------------
+   TABLETTE ET MOBILE
+   ------------------------------------------------------------ */
+@media (max-width: 1099px) {
+  .ia-points { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 899px) {
+  :root { --section: clamp(80px, 18vw, 120px); }
+  .b-7, .b-5 { grid-column: 1 / -1; }
+  #projets .b-5 .apercu { aspect-ratio: 16 / 10; }
+  #projets > .intro { padding-right: 0; }
+  .detail-blocs-3 { grid-template-columns: 1fr; }
+  .bio-grille { grid-template-columns: 1fr; }
+  .box-cta { min-height: 0; }
+  .ia-tete { flex-direction: column; align-items: stretch; }
+  .ia-fleche { align-self: flex-end; }
+  /* bio : un extrait, la suite au toucher */
+  .bio-texte { cursor: pointer; }
+  .bio-corps { max-height: 9.5em; overflow: hidden; -webkit-mask-image: linear-gradient(#000 55%, transparent); mask-image: linear-gradient(#000 55%, transparent); }
+  .bio-ouverte .bio-corps { max-height: none; -webkit-mask-image: none; mask-image: none; }
+  .bio-plus { display: inline-grid; align-self: flex-start; border: 0; cursor: pointer; }
+  .bio-ouverte .bio-plus { transform: rotate(180deg); }
+  .langues { margin-left: 0; }
+}
+@media (max-width: 639px) {
+  :root { --gap: 10px; --rayon: 18px; }
+  .ia-points { grid-template-columns: 1fr; gap: 20px; }
+  .hero-cta { flex-direction: column; gap: 20px; }
+  .hero p { font-size: 17px; }
+  .bio-tete { flex-direction: column; align-items: flex-start; gap: 18px; }
+  .box-faq .box-tete { padding: 16px 14px 16px 20px; }
+  .box-faq .detail-in { padding: 0 20px 22px; }
+  .fermer-btn { top: 10px; right: 10px; }
+}
+
+/* ============================================================
+   1A·b — ce qui était centré le reste, et un CODE COULEUR :
+   chaque couleur a un rôle, toujours le même, partout
+     BLEU   = agir        boutons, flèches au survol (ce qui s'ouvre)
+     JAUNE  = vous êtes ici   langue active, section active, élément ouvert
+     ROUGE  = sortir      le bouton Fermer (convention : rouge = fermer)
+     les chiffres et résultats restent en variations de gris
+   ============================================================ */
+
+/* hero : bouton puis lien dessous, sur l'axe (comme la V39) */
+.hero-cta { flex-direction: column; gap: 18px; }
+
+/* les titres de section restent centrés (comme la V39) */
+.intro, .faq > .titre { margin-inline: auto; text-align: center; }
+#projets > .intro { max-width: 22em; padding-right: 0; }
+
+/* BLEU — agir */
+#projets .depliable:not(.ouverte):hover .plus,
+.ia-carte:not(.ouverte):hover .ia-fleche,
+.box-faq:not(.ouverte):hover .signe { background: var(--bleu); color: #fff; }
+
+/* JAUNE — vous êtes ici */
+.term a::before { background: var(--jaune); }
+.ia-carte.ouverte .ia-fleche,
+.box-faq.ouverte .signe { background: var(--jaune); color: var(--encre); }
+.fermer-btn, .fermer-btn:hover { background: var(--rouge); color: #fff; }
+.fermer-btn:hover { opacity: 0.88; }
+
+/* les résultats : en variations de gris — le chiffre en encre sur la phrase grise */
+#projets .accroche strong { color: var(--encre); }
+.chiffres li { padding-left: 20px; }
+.chiffres li::before { content: ""; top: 0.62em; width: 6px; height: 6px; border-radius: 50%; background: var(--encre); }
+
+/* une tête à 100 % de hauteur dans une box ouverte englobait le détail :
+   la réponse était coupée — la tête reprend sa hauteur naturelle */
+.box-faq .box-tete,
+.depliable.ouverte .box-tete { height: auto; }
+
+/* ============================================================
+   1A·e — DEUX SLIDES, PUIS LE DÉFILEMENT NORMAL
+   Le hero et la carte IA occupent chacun un écran : un geste
+   (molette, trackpad, doigt, clavier) passe de l'un à l'autre —
+   piloté par home.js, aucune librairie. Dès les projets, le
+   défilement redevient normal, de haut en bas.
+   ============================================================ */
+.ia {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding: 96px var(--marge) 48px;
+}
+.ia > .ia-carte { width: 100%; max-width: var(--large); margin-inline: auto; }
+
+/* ============================================================
+   1A·f — WINGO : la campagne de lancement dans le détail du projet
+   deux phases (teasing, lancement) côte à côte, puis le spot.
+   Les deux affiches ne font que 620 px de large : jamais affichées
+   plus grandes que leur taille réelle, pour rester nettes.
+   ============================================================ */
+.campagne { display: flex; flex-direction: column; gap: 28px; padding-top: clamp(28px, 3.4vw, 48px); border-top: 1px solid rgba(18, 18, 18, 0.08); }
+.campagne > h3.ui { color: var(--gris); }
+.campagne-intro { max-width: 34em; font-size: var(--t-moyen); font-weight: 500; line-height: 1.3; letter-spacing: -0.02em; color: var(--gris-fonce); }
+.campagne-phases { display: grid; grid-template-columns: repeat(2, minmax(0, 620px)); gap: clamp(20px, 3vw, 40px); }
+.campagne figure { margin: 0; display: flex; flex-direction: column; gap: 16px; }
+.campagne-phases img { width: 100%; max-width: 620px; height: auto; border-radius: var(--rayon-int); background: var(--creux); }
+.campagne figcaption { display: flex; flex-direction: column; gap: 8px; }
+.campagne figcaption .ui { color: var(--encre); }
+.campagne figcaption p { color: var(--texte); max-width: 36em; }
+.video-cadre { position: relative; aspect-ratio: 16 / 9; overflow: hidden; border-radius: var(--rayon-int); background: var(--encre); }
+.video-cadre iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.video figcaption { color: var(--gris); }
+@media (max-width: 899px) {
+  .campagne-phases { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ============================================================
+   1A·g — PASTELS, NOMS DES ENTREPRISES, LAUSANNE DANS LE HERO
+   (1) couleurs d'action et de repère en pastels, dans l'air du
+       temps (baby blue, butter yellow) : texte encre dessus, plus
+       de blanc sur couleur ; le rouge n'est plus utilisé
+   (2) le bouton Fermer redevient neutre (gris), sans couleur
+   (3) le nom de l'entreprise passe à la taille des accroches, en
+       encre et en gras : nom + accroche grise = les deux tons des
+       grands titres, aucune taille nouvelle
+   (la scène 3D de Lausanne, essayée ici, est remplacée en 1A·i)
+   ============================================================ */
+:root {
+  --bleu: #BCD2FF;            /* baby blue : agir */
+  --bleu-survol: #A6C2FF;
+  --jaune: #FCE6A0;           /* butter yellow : vous êtes ici */
+}
+::selection { background: var(--bleu); color: var(--encre); }
+:focus-visible { outline-color: var(--encre); }
+
+/* (1) agir : boutons et flèches survolées en bleu pastel, texte encre */
+.btn, .hero-cta .btn { background: var(--bleu); color: var(--encre); }
+.btn:hover { background: var(--bleu-survol); }
+#projets .depliable:not(.ouverte):hover .plus,
+.ia-carte:not(.ouverte):hover .ia-fleche,
+.box-faq:not(.ouverte):hover .signe { background: var(--bleu); color: var(--encre); }
+
+/* (2) fermer : neutre */
+.fermer-btn, .fermer-btn:hover { background: var(--creux); color: var(--encre); opacity: 1; }
+.fermer-btn:hover { background: #E6E6E6; }
+
+/* (3) le nom de l'entreprise, en évidence */
+#projets .box-tete > .ui {
+  padding: 18px 10px 2px;
+  font-size: var(--t-moyen);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: var(--encre);
+}
+#projets .depliable.ouverte .box-tete > .ui { padding-top: 14px; }
+
+
+/* ============================================================
+   1A·i — PORTRAIT DESSINÉ, FOND QUARTZO, SANS GRAS
+   · fond de page #D4D4D1 (celui de quartzo.studio), cartes blanches
+   · le hero : texte à gauche, portrait dessiné à droite (le blanc
+     du dessin est transparent : le crayon se pose sur le fond),
+     les références en ligne en bas, toutes au-dessus de la ligne
+     de flottaison ; sur téléphone : portrait, texte, références
+   · boutons et flèches « agir » : le bleu d'avant, texte blanc
+   · plus de gras nulle part : titres en 500, textes en 400
+   · projets : le nom à la taille Moyen, l'accroche à la taille
+     du texte de la bio
+   ============================================================ */
+:root {
+  --fond: #D4D4D1;
+  --gris: #76766F;            /* reste lisible sur le fond plus sombre */
+  --bleu: #1E5DFF;
+  --bleu-survol: #124EFB;
+}
+@supports (color: oklch(0 0 0)) {
+  :root { --bleu: oklch(0.56 0.26 264); --bleu-survol: oklch(0.52 0.26 264); }
+}
+::selection { background: var(--bleu); color: #fff; }
+.btn, .hero-cta .btn { background: var(--bleu); color: #fff; }
+.btn:hover { background: var(--bleu-survol); }
+#projets .depliable:not(.ouverte):hover .plus,
+.ia-carte:not(.ouverte):hover .ia-fleche,
+.box-faq:not(.ouverte):hover .signe { background: var(--bleu); color: #fff; }
+
+/* sans gras */
+.display, .titre, .intro, .ia-texte, .mission, .cta-titre, .hero h1 { font-weight: 500; }
+.ia-points h3, b, strong { font-weight: 500; }
+#projets .accroche strong { font-weight: 400; }
+
+/* projets : nom (Moyen) + accroche (texte de la bio) */
+#projets .box-tete > .ui { font-weight: 500; }
+#projets .accroche {
+  font-size: var(--t-texte);
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+  color: var(--texte);
+}
+#projets .accroche strong { color: var(--encre); }
+
+/* à propos : la bio seule, sur toute la largeur */
+.bio-grille { grid-template-columns: minmax(0, 1fr); }
+
+/* HERO */
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  grid-template-rows: 1fr auto;
+  column-gap: clamp(24px, 4vw, 64px);
+  min-height: 100vh;
+  min-height: 100svh;
+  max-width: calc(var(--large) + 2 * var(--marge));
+  margin: 0 auto;
+  padding: 72px var(--marge) 28px;
+  overflow: hidden;
+}
+.hero-centre {
+  grid-column: 1; grid-row: 1;
+  min-height: 0;
+  padding: 0;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: left;
+}
+.hero-centre > * { max-width: 620px; }
+.hero h1 .ligne { white-space: normal; }
+.hero-cta { align-items: flex-start; }
+.hero-dessin {
+  grid-column: 2; grid-row: 1;
+  align-self: end;
+  justify-self: center;
+  width: 100%;
+  max-height: calc(100svh - 190px);
+  object-fit: contain;
+  object-position: bottom center;
+}
+.hero-logos {
+  grid-column: 1 / -1; grid-row: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 28px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(18, 18, 18, 0.12);
+}
+.hero-logos img { height: 22px; width: auto; max-width: 120px; object-fit: contain; filter: grayscale(1) brightness(0.2); opacity: 0.75; }
+.hero-logos img.lg-haut { height: 30px; }
+
+@media (max-aspect-ratio: 1/1), (max-width: 899px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    row-gap: 20px;
+    padding-top: 76px;
+  }
+  .hero-dessin { grid-column: 1; grid-row: 1; width: auto; height: 30svh; max-height: none; justify-self: center; }
+  .hero-centre { grid-row: 2; align-items: center; text-align: center; gap: 20px; }
+  .hero-cta { align-items: center; }
+  .hero-logos { grid-row: 3; justify-content: center; gap: 14px 22px; padding-top: 18px; }
+  .hero-logos img { height: 18px; max-width: 84px; }
+  .hero-logos img.lg-haut { height: 24px; }
+}
+
+/* ============================================================
+   1A·j — LOGOS AÉRÉS, MONOCHROME, BIO EN CARTE PROJET
+   · plus de lien « Voir les projets » ni de slides : défilement
+     natif, on remonte au hero sans résistance
+   · le jaune devient noir/blanc (langue active, section active,
+     élément ouvert) ; le bleu reste seul pour agir
+   · logos plus grands, plus d'air, sans filet
+   · bio : même habit que les cartes projets — la photo en grand
+     à gauche (marge 8px), le nom et le texte à droite
+   ============================================================ */
+.term a::before { background: var(--encre); }
+.term a.lang.langue-active,
+.term a.lang.langue-active:hover,
+.langues .lang.langue-active { background: var(--encre); color: #fff; }
+.ia-carte.ouverte .ia-fleche,
+.box-faq.ouverte .signe { background: var(--encre); color: #fff; }
+
+/* logos */
+.hero-logos {
+  border-top: 0;
+  padding-top: clamp(28px, 4vh, 48px);
+  padding-bottom: 8px;
+  gap: 24px clamp(32px, 4vw, 64px);
+}
+.hero-logos img { height: 28px; max-width: 150px; opacity: 0.85; }
+.hero-logos img.lg-haut { height: 38px; }
+.hero-dessin { max-height: calc(100svh - 230px); }
+
+/* bio */
+.bio-texte {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  grid-template-rows: 1fr auto auto 1fr;
+  column-gap: clamp(28px, 4vw, 64px);
+  row-gap: 0;
+  padding: 8px;
+}
+.bio-tete { display: contents; }
+.bio-photo {
+  grid-column: 1; grid-row: 1 / -1;
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  aspect-ratio: auto;
+  object-fit: cover;
+  object-position: center 30%;
+  border-radius: var(--rayon-int);
+}
+.bio-tete .titre { grid-column: 2; grid-row: 2; margin: 0 0 24px; padding-right: clamp(24px, 3vw, 48px); }
+.bio-corps { grid-column: 2; grid-row: 3; padding: 0 clamp(24px, 3vw, 48px) 0 0; max-width: 34em; }
+@media (min-width: 900px) { .bio-texte { min-height: 560px; } .bio-corps { padding-bottom: 48px; } .bio-tete .titre { padding-top: 48px; } }
+@media (max-width: 899px) {
+  .bio-texte { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; }
+  .bio-photo { grid-row: 1; min-height: 0; aspect-ratio: 1 / 1; }
+  .bio-tete .titre { grid-column: 1; grid-row: 2; padding: 22px 14px 0; margin-bottom: 14px; }
+  .bio-corps { grid-column: 1; grid-row: 3; padding: 0 14px; }
+  .bio-plus { grid-column: 1; grid-row: 4; margin: 14px; }
+}
+@media (min-width: 900px) and (min-aspect-ratio: 1/1) {
+  .hero-logos { flex-wrap: nowrap; gap: clamp(20px, 3vw, 56px); }
+  .hero-logos img { height: clamp(20px, 1.9vw, 28px); max-width: 13%; flex: 0 1 auto; }
+  .hero-logos img.lg-haut { height: clamp(28px, 2.6vw, 38px); }
+}
+
+/* 1A·k — le bleu roi de hervepeitrequin.ch (--signature de la V36-V39)
+   pour les boutons et tout ce qui « agit » ; survol un cran plus foncé */
+:root { --bleu: #3223F4; --bleu-survol: #2819D8; }
+@supports (color: oklch(0 0 0)) { :root { --bleu: #3223F4; --bleu-survol: #2819D8; } }
+
+/* ============================================================
+   1A·m — le titre du hero TOUJOURS sur deux lignes
+   (« Direction marketing / externalisée. »), à toutes les largeurs :
+   sa taille suit la largeur de sa colonne (unités de conteneur),
+   divisée par la longueur mesurée de la ligne la plus longue
+   (en em, + 3 % de marge), plafonnée à 96 px.
+   ============================================================ */
+.hero-centre { container-type: inline-size; }
+.hero-centre > h1 { max-width: none; }
+.hero h1 .ligne { display: block; white-space: nowrap; }
+:root { --h1-em: 8.7; }                 /* FR : « Direction marketing » = 8,41 em */
+html[lang|="de"] { --h1-em: 7.8; }       /* DE : « Marketingleitung. » = 7,53 em */
+html[lang="en"] { --h1-em: 9.05; }      /* EN : « Fractional marketing » = 8,77 em */
+.hero h1 { font-size: min(96px, calc(100cqi / var(--h1-em))); }
+@media (max-aspect-ratio: 1/1), (max-width: 899px) {
+  .hero-logos { padding-top: 18px; gap: 14px 22px; }
+  .hero-logos img { height: 18px; max-width: 84px; }
+  .hero-logos img.lg-haut { height: 24px; }
+}
+
+/* ============================================================
+   1A·n — FOND CLAIR, BOUTONS PERSIMMON, PROFIL DANS LE MENU
+   · fond gris clair d'avant (#EFEFEF)
+   · boutons et tout ce qui « agit » : Persimmon #FF5C34
+     (Pinterest Predicts 2026 ; proche de l'Energy Orange WGSN ×
+     Coloro S/S 27), texte encre pour le contraste (≈ 6,9:1 ;
+     le blanc dessus tomberait à 2,9:1)
+   · le profil (photo ronde + nom) ouvre le menu, comme sur
+     hervepeitrequin.ch
+   ============================================================ */
+:root {
+  --fond: #EFEFEF;
+  --bleu: #FF5C34;            /* le nom reste, la couleur change : agir */
+  --bleu-survol: #F04A20;
+}
+@supports (color: oklch(0 0 0)) { :root { --bleu: #FF5C34; --bleu-survol: #F04A20; } }
+::selection { background: var(--bleu); color: var(--encre); }
+:focus-visible { outline-color: var(--encre); }
+.btn, .hero-cta .btn { background: var(--bleu); color: var(--encre); }
+.btn:hover { background: var(--bleu-survol); }
+#projets .depliable:not(.ouverte):hover .plus,
+.ia-carte:not(.ouverte):hover .ia-fleche,
+.box-faq:not(.ouverte):hover .signe { background: var(--bleu); color: var(--encre); }
+
+/* HERO : le portrait reste à droite (mise en page 1A·i) ;
+   le logo Vaud, plus large que haut, à la taille des autres */
+.hero-logos img.lg-vaud { height: 30px; }
+@media (max-aspect-ratio: 1/1), (max-width: 899px) { .hero-logos img.lg-vaud { height: 22px; } }
+/* neuf logos sur une ligne : s'ils ne tiennent pas à leur vraie
+   taille, ils défilent lentement (home.js ajoute .defile) */
+@media (min-width: 900px) and (min-aspect-ratio: 1/1) {
+  .hero-logos img.lg-vaud { height: clamp(22px, 2.1vw, 30px); }
+  .hero-logos.mesure img, .hero-logos.defile img { max-width: none; flex: none; }
+  .hero-logos.defile {
+    display: block;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  }
+  .hero-logos .piste {
+    display: flex;
+    align-items: center;
+    gap: clamp(32px, 3.4vw, 56px);
+    width: max-content;
+    padding-right: clamp(32px, 3.4vw, 56px);
+    animation: logos-defilent 45s linear infinite;
+  }
+  .hero-logos.defile:hover .piste { animation-play-state: paused; }
+}
+@keyframes logos-defilent { to { transform: translateX(-50%); } }
+
+/* MENU : le profil en tête, comme sur hervepeitrequin.ch */
+.term .profil { gap: 10px; padding: 0 14px 0 0; }
+.term .profil::before { content: none; }
+.term .profil:hover { background: transparent; }
+.term .profil img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; flex: none; filter: grayscale(1); }
+.profil-nom { font-size: 14px; font-weight: 500; color: var(--encre); }
+@media (max-width: 899px) {
+  .profil-nom { display: none; }
+  .term .profil { padding: 0 2px 0 0; }
+  .term .profil img { width: 32px; height: 32px; }
+}
+@media (max-width: 479px) {
+  .term a:not(.profil) { padding: 9px 7px; }
+  .term a.lang { width: 28px; }
+}
+@media (max-width: 359px) {
+  .term .sep { display: none; }
+  .term .profil img { width: 28px; height: 28px; }
+}
+
+/* ============================================================
+   1A·p — CINQ DIRECTIONS DE BOUTONS, à comparer
+   sur la page : ?btn=1 … ?btn=5 (home.js pose html[data-btn]) ;
+   planche côte à côte : /boutons (data-btn sur chaque carte)
+     1 TUILE        le bouton = deux petites bento côte à côte
+     2 NÉO-BRUTAL   aplat Wasabi, filet noir, ombre dure décalée
+     3 VERRE        verre liquide translucide (Apple, WWDC 2025)
+     4 PASTILLE     encre, pastille Wasabi qui s'étend au survol
+     5 BLOC XXL     une bento entière, grand texte, flèche au bout
+   ============================================================ */
+:root { --wasabi: #E9F056; --wasabi-fonce: #D9E22E; }
+:is(html:not([data-btn]), [data-btn]) .btn .arr { display: none; }
+:is(html:not([data-btn]), [data-btn]) .btn { position: relative; isolation: isolate; }
+
+/* 1 — TUILE */
+[data-btn="1"] .btn {
+  padding: 15px 22px;
+  margin-right: 56px;
+  background: var(--carte);
+  color: var(--encre);
+  border-radius: var(--rayon-int);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+[data-btn="1"] .btn::after {
+  content: "→";
+  position: absolute;
+  top: 0; bottom: 0;
+  left: calc(100% + 4px);
+  width: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--rayon-int);
+  background: var(--wasabi);
+  font-size: 18px;
+  transition: transform 0.25s cubic-bezier(.2,.7,.2,1), background-color 0.2s ease, color 0.2s ease;
+}
+[data-btn="1"] .btn:hover,
+[data-btn="1"] a:hover > .btn { background: var(--carte); }
+[data-btn="1"] .btn:hover::after,
+[data-btn="1"] a:hover > .btn::after { background: var(--encre); color: var(--wasabi); transform: translateX(4px); }
+[data-btn="1"] .contact .btn { background: var(--creux); box-shadow: none; }
+
+/* 2 — NÉO-BRUTAL */
+[data-btn="2"] .btn {
+  padding: 14px 24px;
+  background: var(--wasabi);
+  color: var(--encre);
+  border: 2px solid var(--encre);
+  border-radius: var(--rayon-int);
+  box-shadow: 4px 4px 0 var(--encre);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+[data-btn="2"] .btn:hover,
+[data-btn="2"] a:hover > .btn { background: var(--wasabi); transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--encre); }
+[data-btn="2"] .btn:active { transform: translate(4px, 4px); box-shadow: 0 0 0 var(--encre); }
+
+/* 3 — VERRE LIQUIDE */
+[data-btn="3"] .btn {
+  padding: 15px 28px;
+  color: var(--encre);
+  background:
+    radial-gradient(120% 140% at 15% 0%, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0) 60%),
+    linear-gradient(135deg, rgba(233, 240, 86, 0.62), rgba(233, 240, 86, 0.28) 55%, rgba(255, 255, 255, 0.45));
+  -webkit-backdrop-filter: blur(14px) saturate(1.6);
+  backdrop-filter: blur(14px) saturate(1.6);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.06),
+    0 10px 28px rgba(0, 0, 0, 0.10),
+    0 2px 6px rgba(0, 0, 0, 0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+[data-btn="3"] .btn:hover,
+[data-btn="3"] a:hover > .btn {
+  background:
+    radial-gradient(120% 140% at 15% 0%, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0) 60%),
+    linear-gradient(135deg, rgba(233, 240, 86, 0.85), rgba(233, 240, 86, 0.45) 55%, rgba(255, 255, 255, 0.45));
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: inset 0 1px 0 #fff, inset 0 -1px 1px rgba(0, 0, 0, 0.06), 0 14px 34px rgba(0, 0, 0, 0.13), 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+/* 4 — PASTILLE QUI S'ÉTEND */
+[data-btn="4"] .btn {
+  padding: 6px 54px 6px 24px;
+  min-height: 50px;
+  background: var(--encre);
+  color: #fff;
+  overflow: hidden;
+  transition: color 0.3s ease;
+}
+[data-btn="4"] .btn::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 6px; right: 6px; bottom: 6px;
+  width: 38px;
+  border-radius: 999px;
+  background: var(--wasabi);
+  transition: width 0.4s cubic-bezier(.65,0,.25,1);
+}
+[data-btn="4"] .btn::after {
+  content: "→";
+  position: absolute;
+  top: 0; bottom: 0; right: 6px;
+  width: 38px;
+  display: grid;
+  place-items: center;
+  color: var(--encre);
+  font-size: 17px;
+  transition: transform 0.4s cubic-bezier(.65,0,.25,1);
+}
+[data-btn="4"] .btn:hover,
+[data-btn="4"] a:hover > .btn { background: var(--encre); color: var(--encre); }
+[data-btn="4"] .btn:hover::before,
+[data-btn="4"] a:hover > .btn::before { width: calc(100% - 12px); }
+[data-btn="4"] .btn:hover::after,
+[data-btn="4"] a:hover > .btn::after { transform: translateX(-2px) rotate(-45deg); }
+
+/* 5 — BLOC XXL */
+[data-btn="5"] .btn {
+  justify-content: space-between;
+  gap: 48px;
+  min-width: min(100%, 340px);
+  white-space: nowrap;
+  padding: 22px 22px 22px 28px;
+  background: var(--wasabi);
+  color: var(--encre);
+  border-radius: var(--rayon);
+  font-size: var(--t-moyen);
+  letter-spacing: -0.02em;
+}
+[data-btn="5"] .btn::after {
+  content: "↘";
+  display: grid;
+  place-items: center;
+  width: 44px; height: 44px;
+  border-radius: var(--rayon-int);
+  background: var(--encre);
+  color: var(--wasabi);
+  font-size: 20px;
+  transition: transform 0.3s cubic-bezier(.2,.7,.2,1);
+}
+[data-btn="5"] .btn:hover,
+[data-btn="5"] a:hover > .btn { background: var(--wasabi-fonce); }
+[data-btn="5"] .btn:hover::after,
+[data-btn="5"] a:hover > .btn::after { transform: rotate(-90deg); }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn, .btn::before, .btn::after { transition: none; }
+}
+
+/* ============================================================
+   1A·q — ISL : le logo jaune en carte et en tête du détail,
+   puis « La nouvelle identité » : six images carrées, 3 × 2,
+   légendées et regroupées (Identité · Campus · Digital)
+   ============================================================ */
+#projets .apercu-jaune { background: #FFE000; }
+#projets .apercu-jaune img { object-fit: cover; object-position: center; }
+#isl .detail-in > img.detail-jaune { object-fit: cover; object-position: center; padding: 0; max-height: 520px; aspect-ratio: 16 / 9; background: #FFE000; }
+.identite-grille { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2.4vw, 32px) clamp(14px, 2vw, 24px); }
+.identite-grille img { width: 100%; aspect-ratio: 1 / 1; height: auto; object-fit: cover; border-radius: var(--rayon-int); background: var(--creux); }
+.identite-grille figcaption { gap: 4px; }
+.identite-grille figcaption .ui { color: var(--gris); }
+.identite-grille figcaption p { color: var(--encre); line-height: 1.4; }
+@media (max-width: 899px) { .identite-grille { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* 1A·r — le VERRE LIQUIDE (direction 3), teinté Wasabi, devient
+   le bouton du site : sans ?btn=, html n'a pas de data-btn et la
+   règle 3 s'applique.
+   Le Wasabi reprend aussi le rôle « agir » de l'orange (flèches
+   survolées, sélection), pour une seule couleur vive sur la page. */
+:root { --bleu: #E9F056; --bleu-survol: #D9E22E; }
+@supports (color: oklch(0 0 0)) { :root { --bleu: #E9F056; --bleu-survol: #D9E22E; } }
+
+/* ============================================================
+   1A·t — 6 TACTILE : le bouton du site (sans ?btn=, c'est lui)
+   · rectangle doux (rayon 10px), filet encre 1.5px, grain papier,
+     reflet en haut, ombre courte dessous : un objet qu'on presse
+   · BLEU électrique au repos = agir ; ORANGÉ corail au survol et
+     pour tout ce qui est « sélectionné » (langue active, élément
+     ouvert, section du menu, sélection de texte)
+   · texte blanc sur le bleu (≈ 5:1), encre sur le corail (≈ 7:1)
+   ============================================================ */
+:root {
+  --bleu: #1F5FFF;            /* agir */
+  --bleu-survol: #1A50E6;
+  --corail: #FF6B4F;          /* sélectionné */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+@supports (color: oklch(0 0 0)) { :root { --bleu: #1F5FFF; --bleu-survol: #1A50E6; } }
+::selection { background: var(--corail); color: var(--encre); }
+
+:is(html:not([data-btn]), [data-btn="6"]) .btn {
+  gap: 12px;
+  padding: 15px 22px 15px 24px;
+  background-color: var(--bleu);
+  background-image: var(--grain), linear-gradient(to bottom, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0) 55%);
+  color: #fff;
+  border: 1.5px solid var(--encre);
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.16),
+    0 3px 0 -0.5px rgba(18, 18, 18, 0.85),
+    0 6px 14px -4px rgba(18, 18, 18, 0.35);
+  transition: background-color 0.18s ease, color 0.18s ease, transform 0.12s ease, box-shadow 0.12s ease;
+}
+:is(html:not([data-btn]), [data-btn="6"]) .btn::after {
+  content: "→";
+  font-size: 19px;
+  line-height: 1;
+  transition: transform 0.25s cubic-bezier(.2,.7,.2,1);
+}
+:is(html:not([data-btn]), [data-btn="6"]) .btn:hover,
+:is(html:not([data-btn]), [data-btn="6"]) a:hover > .btn {
+  background-color: var(--corail);
+  color: var(--encre);
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.12),
+    0 4px 0 -0.5px rgba(18, 18, 18, 0.85),
+    0 10px 18px -6px rgba(18, 18, 18, 0.35);
+}
+:is(html:not([data-btn]), [data-btn="6"]) .btn:hover::after,
+:is(html:not([data-btn]), [data-btn="6"]) a:hover > .btn::after { transform: translateX(4px); }
+:is(html:not([data-btn]), [data-btn="6"]) .btn:active {
+  transform: translateY(2px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), inset 0 2px 4px rgba(0, 0, 0, 0.18), 0 1px 0 -0.5px rgba(18, 18, 18, 0.85);
+}
+@media (prefers-reduced-motion: reduce) {
+  :is(html:not([data-btn]), [data-btn="6"]) .btn:hover, :is(html:not([data-btn]), [data-btn="6"]) a:hover > .btn { transform: none; }
+}
+
+/* agir = bleu (flèches des cartes au survol), sélectionné = corail */
+#projets .depliable:not(.ouverte):hover .plus,
+.ia-carte:not(.ouverte):hover .ia-fleche,
+.box-faq:not(.ouverte):hover .signe { background: var(--bleu); color: #fff; }
+.term a::before { background: var(--corail); }
+.term a.lang.langue-active,
+.term a.lang.langue-active:hover,
+.langues .lang.langue-active,
+.ia-carte.ouverte .ia-fleche,
+.box-faq.ouverte .signe { background: var(--corail); color: var(--encre); }
+
+/* ============================================================
+   1A·u — LA CARTE IA : moins d'air, et un défilement vivant
+   · plus d'écran entier autour de la carte (reste des slides 1A·e) :
+     elle suit le hero de près, les projets la suivent de près
+   · en défilant (natif, piloté par le défilement, sans librairie) :
+     la carte grandit jusqu'à sa taille, et la seconde phrase passe
+     du gris à l'encre au fil de la lecture
+   ============================================================ */
+.ia {
+  min-height: 0;
+  display: block;
+  padding: clamp(88px, 11vw, 160px) var(--marge) 0;
+}
+.suite > #projets { padding-top: clamp(120px, 14vw, 208px); }
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .ia-carte {
+      animation: ia-entre linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 40%;
+    }
+    @keyframes ia-entre {
+      from { transform: scale(0.92); border-radius: 40px; }
+      to { transform: none; border-radius: var(--rayon); }
+    }
+    .ia-texte .gris {
+      color: transparent;
+      background: linear-gradient(90deg, var(--encre) 44%, var(--gris) 56%) 100% 0 / 200% 100% no-repeat;
+      -webkit-background-clip: text;
+      background-clip: text;
+      animation: ia-lit linear both;
+      animation-timeline: view();
+      animation-range: cover 15% cover 55%;
+    }
+    @keyframes ia-lit { to { background-position: 0 0; } }
+  }
+}
+
+/* ============================================================
+   1A·x — LA CARTE IA COMME UNE SLIDE
+   la carte elle-même remplit l'écran (et non plus du vide autour) :
+   texte centré verticalement, plus grand ; défilement natif, sans
+   accroche ni résistance ; elle grandit en arrivant (1A·u)
+   ============================================================ */
+.ia { padding: clamp(16px, 2vw, 24px) var(--marge) 0; }
+.ia-carte:not(.ouverte) {
+  min-height: calc(100svh - 2 * clamp(16px, 2vw, 24px));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.ia-texte { font-size: clamp(32px, 4.6vw, 68px); max-width: 20em; line-height: 1.06; }
+.suite > #projets { padding-top: clamp(120px, 14vw, 208px); }
